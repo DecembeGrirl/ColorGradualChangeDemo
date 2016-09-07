@@ -1,0 +1,32 @@
+//
+//  PrefixHeader.pch
+//  ColorGradualChangeDemo
+//
+//  Created by 杨淑园 on 16/7/13.
+//  Copyright © 2016年 yangshuyaun. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <ShareSDKUI/ShareSDKUI.h>
+#import <ShareSDK/ShareSDK+Base.h>
+//#import "SSUIShareActionSheetCustomItem.h"
+#import <ShareSDKUI/ShareSDKUI.h>
+#import <ShareSDKUI/SSUIShareActionSheetStyle.h>
+#import "WXApi.h"
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+
+#import "UIImageView+WebCache.h"
+
+
+#import "Config.h"
+
+//
+#endif /* PrefixHeader_pch */
