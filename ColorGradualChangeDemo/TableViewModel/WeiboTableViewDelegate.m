@@ -1,4 +1,4 @@
-//
+        //
 //  TableViewDelegate.m
 //  ColorGradualChangeDemo
 //
@@ -7,7 +7,6 @@
 //
 
 #import "WeiboTableViewDelegate.h"
-//#import "StatusObj.h"
 #import "RetweetedStatusViewCell.h"
 #import "StatusViewForImageCell.h"
 #import "SearchBar.h"
@@ -55,6 +54,7 @@
         }
         retweetedStatusViewCell.delegate = self;
         self.configCellBlock(indexPath,obj,retweetedStatusViewCell);
+        [retweetedStatusViewCell SelectLink];
         return retweetedStatusViewCell;
     }
     else if(obj.pic_urls.count > 0)
@@ -65,6 +65,7 @@
         }
         statusViewForImageCell.delegate = self;
         self.configCellBlock(indexPath,obj,statusViewForImageCell);
+         [statusViewForImageCell SelectLink];
         return statusViewForImageCell;
     }
     else
@@ -75,6 +76,7 @@
         }
         baseCell.delegate = self;
         self.configCellBlock(indexPath,obj,baseCell);
+         [baseCell SelectLink];
         return baseCell;
     }
 }
@@ -94,6 +96,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    
     self.selectedCellBlock(cell);
 }
 #pragma  BaseCellDelegate
@@ -101,17 +104,22 @@
 {
     self.selectedCellBtnBolck(cell,type);
 }
--(void)SelectedNameOrHeader:(BaseCell *)cell
+-(void)SelectedNameOrHeader:(Statuses *)statusObj
 {
-    self.selectedNameOrHeaderBlock(cell);
+    self.selectedNameOrHeaderBlock(statusObj);
 }
 -(void)SelectedMoreBtn:(BaseCell *)cell
 {
     self.selectedCellMoreBtnBlock(cell);
 }
-
--(void)SelectedURL:(NSString *)urlStr
+-(void)SelectedUserName:(Statuses *)statusObj
 {
-    self.selectedURL(urlStr);
+    
+    NSLog(@"++++ %@",statusObj.user.name);
+    self.selectedNameOrHeaderBlock(statusObj);
+}
+-(void)SelectedURL:(NSString *)url
+{
+    self.selectedURL(url);
 }
 @end

@@ -36,7 +36,8 @@
 @property (nonatomic, strong)UIImageView* currentView;
 @property (nonatomic ,strong)id<ShowBigViewDelegate>delegate;
 -(void)ConfigData:(NSArray *)array ImageView:(UIImageView *)imageView atIndex:(NSInteger )index;
--(void)CreatSelectedView:(UIImageView *)view AndFrame:(CGRect )frame;
+//-(void)CreatSelectedView:(UIImageView *)view AndFrame:(CGRect )frame;
+-(void)CreatSelectedView:(UIImageView *)view AndFrame:(CGRect )frame currentIamge:(UIImage *)image;
 -(void)showBigImage;
 
 @end

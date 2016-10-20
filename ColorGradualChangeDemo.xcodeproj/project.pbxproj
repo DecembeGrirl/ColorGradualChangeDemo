@@ -376,6 +376,8 @@
 		E5CD09AD1C8D1B3A00A7DBC1 /* ChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CD09AC1C8D1B3A00A7DBC1 /* ChatToolView.m */; };
 		E5CD09B01C8D250A00A7DBC1 /* ReportsStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CD09AF1C8D250A00A7DBC1 /* ReportsStatusView.m */; };
 		E5CFB8D21C3BB98A007A3A62 /* headImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CFB8D11C3BB98A007A3A62 /* headImage.png */; };
+		E5D027E41D80FAA500CB8DED /* tabbar_compose_background_icon_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D027E21D80FAA500CB8DED /* tabbar_compose_background_icon_close@2x.png */; };
+		E5D027E51D80FAA500CB8DED /* tabbar_compose_background_icon_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D027E31D80FAA500CB8DED /* tabbar_compose_background_icon_close@3x.png */; };
 		E5D5423C1C9FD3CA00DF65DC /* YYTextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D5420A1C9FD3CA00DF65DC /* YYTextContainerView.m */; };
 		E5D5423D1C9FD3CA00DF65DC /* YYTextDebugOption.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D5420C1C9FD3CA00DF65DC /* YYTextDebugOption.m */; };
 		E5D5423E1C9FD3CA00DF65DC /* YYTextEffectWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D5420E1C9FD3CA00DF65DC /* YYTextEffectWindow.m */; };
@@ -1012,6 +1014,8 @@
 		E5CD09AE1C8D250A00A7DBC1 /* ReportsStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportsStatusView.h; sourceTree = "<group>"; };
 		E5CD09AF1C8D250A00A7DBC1 /* ReportsStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportsStatusView.m; sourceTree = "<group>"; };
 		E5CFB8D11C3BB98A007A3A62 /* headImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = headImage.png; path = ../DataModel/headImage.png; sourceTree = "<group>"; };
+		E5D027E21D80FAA500CB8DED /* tabbar_compose_background_icon_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_compose_background_icon_close@2x.png"; sourceTree = "<group>"; };
+		E5D027E31D80FAA500CB8DED /* tabbar_compose_background_icon_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_compose_background_icon_close@3x.png"; sourceTree = "<group>"; };
 		E5D542091C9FD3CA00DF65DC /* YYTextContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextContainerView.h; sourceTree = "<group>"; };
 		E5D5420A1C9FD3CA00DF65DC /* YYTextContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextContainerView.m; sourceTree = "<group>"; };
 		E5D5420B1C9FD3CA00DF65DC /* YYTextDebugOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextDebugOption.h; sourceTree = "<group>"; };
@@ -1434,6 +1438,8 @@
 		E5618DEC1C4C8F7F004F45B5 /* weiboImage */ = {
 			isa = PBXGroup;
 			children = (
+				E5D027E21D80FAA500CB8DED /* tabbar_compose_background_icon_close@2x.png */,
+				E5D027E31D80FAA500CB8DED /* tabbar_compose_background_icon_close@3x.png */,
 				E520A5291D7ECEA200BCCBA8 /* toolbar_icon_addtogroup@2x.png */,
 				E520A52A1D7ECEA200BCCBA8 /* toolbar_icon_addtogroup@3x.png */,
 				E520A51D1D7ECE5600BCCBA8 /* compose_publicbutton@2x.png */,
@@ -2713,6 +2719,7 @@
 				E5933BC51C3D0A9C00E855B3 /* WeiboSDK.bundle in Resources */,
 				E56C302B1D2D066A00677550 /* tabbar_compose_wbcamera@3x.png in Resources */,
 				E5618E061C4C8F7F004F45B5 /* tabbar_discover@3x.png in Resources */,
+				E5D027E51D80FAA500CB8DED /* tabbar_compose_background_icon_close@3x.png in Resources */,
 				E5A393BA1D29F869005780C5 /* messagescenter_subscription@2x.png in Resources */,
 				E57980461CB4F500001AC9FA /* AssetsPickerChecked~iOS6@2x.png in Resources */,
 				E59846F01D2654D700092C51 /* Expression_24.png in Resources */,
@@ -2843,6 +2850,7 @@
 				E57980491CB4F500001AC9FA /* complete.png in Resources */,
 				E520A5241D7ECE5600BCCBA8 /* compose_publicbutton@3x.png in Resources */,
 				E520A5271D7ECE5600BCCBA8 /* timeline_relationship_icon_addattention@2x.png in Resources */,
+				E5D027E41D80FAA500CB8DED /* tabbar_compose_background_icon_close@2x.png in Resources */,
 				E5618E0C1C4C8F7F004F45B5 /* tabbar_home@3x.png in Resources */,
 				E520A51C1D7ECDB900BCCBA8 /* tabbar_compose_idea@3x.png in Resources */,
 				E59846F71D2654D700092C51 /* Expression_30.png in Resources */,
@@ -3200,6 +3208,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = CV6BXNLMXG;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3244,6 +3253,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = CV6BXNLMXG;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

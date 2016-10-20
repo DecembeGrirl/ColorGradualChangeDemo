@@ -24,8 +24,9 @@
 #define KURLCreatFavorites @"https://api.weibo.com/2/favorites/create.json" // 添加收藏
 #define  KURLRemoveFavorites @"https://api.weibo.com/2/favorites/destroy.json"  //移除收藏
 #define KURLGetUserPhoto   @"https://api.weibo.com/2/place/users/photos.json"  // 获取用户相册
+#define KURLShort_urlToLong_url  @"https://api.weibo.com/2/short_url/expand.json"
 
-
+#define KURLGetTrends_hourly @"https://api.weibo.com/2/trends/hourly.json" // 返回最近一小时内的热门话题
 
 
 
@@ -80,6 +81,7 @@
 #define Kstatuses @"statuses"
 #define Kstatus @"status"
 #define KstatusComments @"statutsComments"
+#define KShort_URL  @"url_short"
 
 
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
@@ -95,7 +97,8 @@
 #define KtagRemoveFavorites  @"RemoveFavorites"
 #define KTagGetSingleWeiboInfoWithID @"GetSingleWeiboInfoWithID"
 #define KTagGetUserPhotoInfo     @"GetUserPhotoInfo"
-
+#define KTagShortURLToLongURL    @"ShortURLToLongURL"
+#define KTagTrends_hourly        @"Trends_hourly"
 
 
 #define KComments @"comments"

@@ -89,7 +89,7 @@
 
 -(UIImage *)ClipImage:(UIImage *)image withRect:(CGRect)rect
 {
-    UIImageView * imageView  = [[UIImageView alloc]initWithFrame:rect];
+    UIImageView * imageView  = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
     [imageView setImage:image];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);

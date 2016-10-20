@@ -25,6 +25,7 @@
 {
     tableView.delegate = self;
     tableView.dataSource = self;
+    [tableView reloadData];
 }
 
 #pragma  maek - tableViewDelegate

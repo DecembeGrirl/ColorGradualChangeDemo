@@ -442,7 +442,7 @@
 
 #pragma mark ---- UserInfoTableHeaderViewDelegate ---
 #pragma mark - userPhotoTableViewCellDelegate
--(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
+-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath currentImage:(UIImage *)image images:(NSArray *)array inView:(UIView *)view
 {
     self.tabBarController.tabBar.hidden = YES;
     _imageContentView =(UserPhotoCollectionView *)view;
@@ -454,13 +454,22 @@
     big.delegate = self;
     [self.view addSubview:big];
     [big ConfigData:array ImageView:imageView atIndex:indexpath.row];
-    [big CreatSelectedView:tempView AndFrame:toViewframe];
-    
-    
-    
-    
-    
+    [big CreatSelectedView:tempView AndFrame:toViewframe currentIamge:image];
 }
+//-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
+//{
+//    self.tabBarController.tabBar.hidden = YES;
+//    _imageContentView =(UserPhotoCollectionView *)view;
+//    UIImageView * imageView = cell.contentView.subviews.lastObject;
+//    UIImageView * tempView = [[UIImageView alloc]initWithImage:imageView.image];
+//    CGRect toViewframe =[view convertRect:cell.frame toView:self.view];
+//    [tempView setFrame:toViewframe];
+//    ShowBigView *big = [[ShowBigView alloc]initWithFrame:self.view.bounds];
+//    big.delegate = self;
+//    [self.view addSubview:big];
+//    [big ConfigData:array ImageView:imageView atIndex:indexpath.row];
+//    [big CreatSelectedView:tempView AndFrame:toViewframe];
+//}
 
 -(void)selectedUserInfoTableHeaderViewHomeBtn
 {
@@ -477,14 +486,12 @@
     [[RequsetStatusService shareInstance] GetUserPhotoInfo:self.userObj page:_photoPage];
     
 }
-
 -(void)selectedUserInfoTableHeaderViewWeiBoBtn
 {
     self.tableViewDelegate.dataSource = self.dataSource;
     self.tableViewDelegate.type = TypeOfUserStatusTableView;
     if(self.dataSource.count > 0)
         [_tableView reloadData];
-    
 }
 
 -(void)ConfigPhotoTable:(NSDictionary *)dic

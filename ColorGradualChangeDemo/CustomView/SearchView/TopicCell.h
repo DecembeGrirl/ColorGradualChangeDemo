@@ -8,14 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TopicCell : UITableViewCell
+@interface TopicCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     UILabel * _lable1;
     UILabel * _lable2;
     UILabel * _lable3;
     UILabel * _lable4;
+    
+    UICollectionView * myCollectionView;
+    NSArray * dataSource;
+    
 }
 
--(void)ConfigData:(id)data;
+-(void)ConfigData:(NSArray *)array;
 
 @end

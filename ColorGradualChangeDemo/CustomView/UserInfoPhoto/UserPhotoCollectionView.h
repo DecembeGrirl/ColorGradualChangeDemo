@@ -13,7 +13,8 @@ typedef void(^SeleBlankOutOfCellBlock)();
 
 @protocol userPhotoCollectionViewDelegate <NSObject>
 
--(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view;
+//-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view;
+-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath currentImage:(UIImage *)image images:(NSArray *)array inView:(UIView *)view;
 //-(void)seleBlankOutOfCell;
 
 @end
@@ -24,6 +25,7 @@ typedef void(^SeleBlankOutOfCellBlock)();
 }
 @property (strong, nonatomic)UICollectionView * myCollectionView;
 @property (strong, nonatomic)NSMutableArray * images;
+@property (strong, nonatomic)UIImage * currentImage;
 @property (weak, nonatomic)id<userPhotoCollectionViewDelegate>delegate;
 @property (copy, nonatomic)SeleBlankOutOfCellBlock selectedBlackOutOfcellBlock;
 

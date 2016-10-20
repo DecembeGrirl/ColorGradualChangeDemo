@@ -88,10 +88,10 @@
             tempcell.imageContentView.delegate = weakSelf;
         }
     };
-    self.myTableViewDelegate.selectedNameOrHeaderBlock= ^(BaseCell *cell){
+    self.myTableViewDelegate.selectedNameOrHeaderBlock= ^(Statuses *statusObj){
         UserHomeController * VC = [[UserHomeController alloc
                                     ]init];
-        VC.userObj = cell.statusObj.user;
+        VC.userObj = statusObj.user;
         [weakselfNavigationController pushViewController:VC animated:YES];
     };
     self.myTableViewDelegate.selectedCellMoreBtnBlock =^(UITableViewCell * cell)
@@ -196,32 +196,42 @@
     VC.obj = retweetedStatusView.obj;
     VC.type = COMMENTDETAILSTYPE;
     [self.navigationController pushViewController:VC animated:YES];
-    
 }
 
-
 #pragma mark - userPhotoTableViewCellDelegate
--(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
+-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath currentImage:(UIImage *)image images:(NSArray *)array inView:(UIView *)view
 {
     self.tabBarController.tabBar.hidden = YES;
     _imageContentView =(UserPhotoCollectionView *)view;
     UIImageView * imageView = cell.contentView.subviews.lastObject;
     UIImageView * tempView = [[UIImageView alloc]initWithImage:imageView.image];
-    CGRect toViewframe =[view convertRect:imageView.frame toView:self.view];
+    CGRect toViewframe =[view convertRect:cell.frame toView:self.view];
     [tempView setFrame:toViewframe];
     ShowBigView *big = [[ShowBigView alloc]initWithFrame:self.view.bounds];
     big.delegate = self;
     [self.view addSubview:big];
     [big ConfigData:array ImageView:imageView atIndex:indexpath.row];
-    [big CreatSelectedView:tempView AndFrame:toViewframe];
+    [big CreatSelectedView:tempView AndFrame:toViewframe currentIamge:image];
 }
-
+//-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
+//{
+//    self.tabBarController.tabBar.hidden = YES;
+//    _imageContentView =(UserPhotoCollectionView *)view;
+//    UIImageView * imageView = cell.contentView.subviews.lastObject;
+//    UIImageView * tempView = [[UIImageView alloc]initWithImage:imageView.image];
+//    CGRect toViewframe =[view convertRect:cell.frame toView:self.view];
+//    [tempView setFrame:toViewframe];
+//    ShowBigView *big = [[ShowBigView alloc]initWithFrame:self.view.bounds];
+//    big.delegate = self;
+//    [self.view addSubview:big];
+//    [big ConfigData:array ImageView:imageView atIndex:indexpath.row];
+//    [big CreatSelectedView:tempView AndFrame:toViewframe];
+//}
 
 -(void)ShowBigViewDismiss:(UIView *)bigView selectedView:(UIView *)view CurrentIndex:(NSInteger)currentIndex images:(NSArray *)images
 {
     self.tabBarController.tabBar.hidden = NO;
     NSIndexPath * indexpath = [NSIndexPath indexPathForItem:currentIndex inSection:0];
-    NSLog(@" %@",_imageContentView.subviews);
     UICollectionViewCell *currentView = [_imageContentView collectionView:_imageContentView.myCollectionView cellForItemAtIndexPath:indexpath];
     currentView.hidden = YES;
     __block CGRect toViewframe =[_imageContentView convertRect:currentView.frame toView:self.view];
@@ -236,9 +246,6 @@
         currentView.hidden = NO;
     } ];
 }
-
-
-
 #pragma mark - BottomToolViewDelegate
 -(void)SelectedBottomViewBtn:(UIButton *)btn btnType:(CommentType)type
 {
@@ -247,35 +254,26 @@
     VC.type = type;
     [self presentViewController:VC animated:YES completion:nil];
 }
-
 #pragma mark --------- 点击了rightNavBtn
 -(void)rightBtnClick
 {
     [self showShareActionSheet:self.view];
-    
 }
-
 - (void)showShareActionSheet:(UIView *)view
 {
     /**
      * 在简单分享中，只要设置共有分享参数即可分享到任意的社交平台
      **/
     __weak WBDetailsController *theController = self;
-    
     //1、创建分享参数（必要）
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    
     NSString * shareText = self.obj.retweeted_status?[NSString stringWithFormat:@"//%@:%@",self.obj.user.name,self.obj.text]:@"说说分享心得...";
     NSArray  *imageURl = self.obj.retweeted_status?self.obj.retweeted_status.pic_urls:self.obj.pic_urls;
-    
     NSArray* imageArray = @[[UIImage imageNamed:@"scrollImage3"]];
-    
     //设置新浪微博分享内容
     [shareParams SSDKSetupSinaWeiboShareParamsByText:shareText title:Nil image:imageURl url:[NSURL URLWithString:@"http://www.baidu.com"] latitude:0 longitude:0 objectID:Nil type:SSDKContentTypeAuto];
-    
     //跳转到 客户端进行分享
     [shareParams SSDKEnableUseClientShare];
-    
     //设置跳过分享编辑页面 显示分享菜单
     SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:view
                                                                      items:nil
@@ -306,17 +304,10 @@
                                                                    break;
                                                            }
                                                        }];
-    
-    
     [shareParams SSDKEnableUseClientShare];
     //添加分享平台 及跳转到对应平台的分享页面
     [sheet.directSharePlatforms removeObject:@(SSDKPlatformTypeWechat)];
     [sheet.directSharePlatforms addObject:@(SSDKPlatformTypeSinaWeibo)];
     [sheet.directSharePlatforms addObject:@(SSDKPlatformTypeSinaWeibo)];
-    
 }
-
-
-
-
 @end

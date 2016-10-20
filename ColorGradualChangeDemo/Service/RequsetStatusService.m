@@ -97,5 +97,20 @@ static RequsetStatusService *_instance= nil;
     [RequsetStatusService ConnectNetworkingWithURL:KURLGetUserPhoto params:params connectType:@"GET" tag:KTagGetUserPhotoInfo];
 }
 
+#pragma mark --  短连接转为普通链接
+-(void)ShortURLToLongURL:(NSString * )shortURL
+{
+    NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
+    NSDictionary * params = @{Kaccess_token:accessToken,KShort_URL:shortURL};
+    [RequsetStatusService ConnectNetworkingWithURL:KURLShort_urlToLong_url params:params connectType:@"GET" tag:KTagShortURLToLongURL];
+}
+#pragma mark --  获取最近一小时的话题
+-(void)getTrendHourly
+{
+    NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
+    NSDictionary * params = @{Kaccess_token:accessToken};
+    [RequsetStatusService ConnectNetworkingWithURL:KURLGetTrends_hourly params:params connectType:@"GET" tag:KTagTrends_hourly];
+}
+
 @end
 

@@ -27,8 +27,12 @@ typedef enum {
 @protocol BaseCellDelegate <NSObject>
 
 -(void)SelectedCellBtn:(BaseCell *)cell btnType:(CommentType)type;
--(void)SelectedNameOrHeader:(BaseCell *)cell;
+-(void)SelectedNameOrHeader:(Statuses *)statusesObj;
 -(void)SelectedMoreBtn:(BaseCell *)cell;
+
+-(void)SelectedUserName:(Statuses *)statusesObj;
+-(void)SelectedURL:(NSString *)url;
+
 @end
 
 @interface BaseCell : UITableViewCell<BottomToolViewBtnDelegate>
@@ -49,9 +53,9 @@ typedef enum {
 -(void)ConfigCellWithIndexPath:(NSIndexPath *)indexPath Data:(id)data cellType:(CellType)cellType;
 -(CGFloat)cellHeight;
 -(void)setSubviewsFrame;
--(void)selectedYYLable;
+//-(void)selectedYYLable;
 -(void)setHeadImageUserInterActionEnable:(BOOL)userInaterActionEnable;
-
+-(void)SelectLink;
 -(void)setMoreBtnImageWithImage;
 
 //-(void)setSubviewsFrame;

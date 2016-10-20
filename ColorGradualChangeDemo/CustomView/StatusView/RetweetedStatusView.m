@@ -23,17 +23,6 @@
         [self addSubview:_contentTextLabel];
         _contentTextLabel.numberOfLines = 0;
         _contentTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        //        [_contentTextLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
-        //        _contentTextLabel.highlightTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect) {
-        ////            [_self showMessage:[NSString stringWithFormat:@"Tap: %@",[text.string substringWithRange:range]]];
-        //            NSLog(@"%@",text);
-        //        };
-        //        [GlobalHelper ShareInstance].selectedYYLabelRangeTextBlock=^(UIView * containerView, NSAttributedString * text, NSRange range, CGRect rect)
-        //        {
-        //            NSString * str = [[text string] substringWithRange:range];
-        //            UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
-        //            [alertView show];
-        //        };
         _imageViewArray = [NSMutableArray arrayWithCapacity:1];
         
         self.imageContentView = [[UserPhotoCollectionView alloc]initWithFrame:CGRectMake(0, 0, self.width, 0)];

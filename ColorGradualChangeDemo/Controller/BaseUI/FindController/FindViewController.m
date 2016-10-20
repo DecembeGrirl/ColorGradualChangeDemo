@@ -12,8 +12,11 @@
 #import "CycleScrollCell.h"
 #import "TopicCell.h"
 #import "NormalSearchCell.h"
+#import "RequsetStatusService.h"
 @interface FindViewController ()<SearchBarDelegate>
-
+{
+    NSArray * trendsArray;
+}
 @end
 
 @implementation FindViewController
@@ -23,21 +26,25 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.customNav.hidden = YES;
     _dataArray = [[NSMutableArray alloc]init];
-    
+    trendsArray = [[NSMutableArray alloc]init];
     [self CreatSearchBar];
     [self CreatSomeData];
-    [self ConfigTableView];
+    [self getTrendHourly];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self CreatSomeData];
+    [self getTrendHourly];
+//    [self ConfigTableView];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [_searchBar.textField resignFirstResponder];
+    [_dataArray removeAllObjects];
 }
 
 -(void)CreatSearchBar
@@ -63,8 +70,9 @@
 
 -(void)ConfigTableView
 {
-    [self.findeTableViewDelegate RegistTableView:_tableView];
     self.findeTableViewDelegate.dataSource = _dataArray;
+    [self.findeTableViewDelegate RegistTableView:_tableView];
+     [_tableView reloadData];
     __weak typeof(self)weakSelf = self;
     self.findeTableViewDelegate.configCellBlock=^(NSIndexPath * indexPath,id item,UITableViewCell * cell)
     {
@@ -78,7 +86,7 @@
         else if ([cell isKindOfClass:[TopicCell class]])
         {
             TopicCell * topicCell = (TopicCell *)cell;
-            [topicCell ConfigData:nil];
+            [topicCell ConfigData:strongSelf->_dataArray.lastObject];
         }
         else if([cell isKindOfClass:[NormalSearchCell class]])
         {
@@ -94,6 +102,29 @@
     self.tabBarController.tabBar.hidden = YES;
     [_searchView SearchBarBecomeFirstResponder];
 }
+
+-(void)getTrendHourly
+{
+
+    __weak typeof(self) weakSelf = self;
+    [[RequsetStatusService shareInstance] getTrendHourly];
+    [RequsetStatusService shareInstance].successBlock = ^(NSData *data , WBHttpRequest *request)
+
+    {
+        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * trendsDic = dic[@"trends"];
+        if(trendsDic){
+        trendsArray  = [trendsDic objectForKey:[trendsDic allKeys][0]];
+        [_dataArray  addObject:trendsArray];
+        [weakSelf ConfigTableView];
+           
+        }
+        
+    };
+}
+
+
+
 -(void)CreatSomeData
 {
     NSMutableArray * array1 = [[NSMutableArray alloc]init];

@@ -159,7 +159,7 @@
     }
     else
     {
-        if(indexPath.section == 1)
+        if((indexPath.section == 1 && self.type == TypeOfUserHomeTableView)||self.type == TypeOfUserStatusTableView)
         {
             BaseCell *baseCell = (BaseCell *)cell;
             [baseCell setSubviewsFrame];

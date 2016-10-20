@@ -16,7 +16,7 @@ typedef void(^TableViewConfigCellBlock)(NSIndexPath * indexPath,id item,BaseCell
 typedef CGFloat(^TableViewHeaderViewHeightBlock)(UITableView * tableView);
 typedef void (^SelectedImageBlock)(NSInteger indexPath,NSArray * array);  //点击图片
 typedef void (^SelectedCellBtnBlock)(BaseCell * cell,CommentType type);  //点击bottomViewbtn
-typedef void (^SelectedCellNameOrHeader)(BaseCell *cell);//点击头像或者昵称
+typedef void (^SelectedCellNameOrHeader)(Statuses * statusObj);//点击头像或者昵称
 
 typedef void (^SelectedCellBlock)(UITableViewCell * cell);
 typedef void (^SelectedCellBtnBlock)(BaseCell * cell,CommentType type);  //点击bottomViewbtn

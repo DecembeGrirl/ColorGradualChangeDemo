@@ -82,7 +82,7 @@
 
 
 
--(void)CreatSelectedView:(UIImageView *)view AndFrame:(CGRect )frame
+-(void)CreatSelectedView:(UIImageView *)view AndFrame:(CGRect )frame currentIamge:(UIImage *)image
 {
     self.selectedView = [[UIImageView alloc]init];
     self.originFrame = frame;
@@ -90,6 +90,7 @@
     //    self.selectedView.image = _currentView.image;
     //    _currentView.image = self.selectedView.image;
     [self addSubview:self.selectedView];
+    self.selectedDisplayImage = image;
     
     [self changeSelectedViewFrame];
 }
@@ -99,7 +100,9 @@
     if(_bigImageArray.count> 0)
         [self showBigImage];
     [UIView animateWithDuration:0.3 animations:^{
+        [weakself.selectedView setImage:self.selectedDisplayImage];
         CGFloat height = weakself.selectedView.image.size.height/weakself.selectedView.image.size.width * weakself.width;
+//        CGFloat height1 = self.selectedDisplayImage.size.height/self.selectedDisplayImage.size.width * weakself.width;
         if(height)
         {
             [weakself.selectedView setFrame:CGRectMake(0, 0, weakself.width, height)];

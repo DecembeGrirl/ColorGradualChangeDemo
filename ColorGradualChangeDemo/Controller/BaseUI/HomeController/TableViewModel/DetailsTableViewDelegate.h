@@ -15,7 +15,7 @@ typedef void(^ScrollViewDidScrollBlock)(UIView * view);
 typedef CGFloat(^TableViewHeaderViewHeightBlock)(UITableView * tableView);
 typedef void (^SelectedImageBlock)(NSInteger indexPath,NSArray * array);
 typedef void (^SelectedSearchCellBlock)(UITableViewCell * cell);
-typedef void (^SelectedCellNameOrHeader)(BaseCell *cell);//点击头像或者昵称
+typedef void (^SelectedCellNameOrHeader)(Statuses * statuses);//点击头像或者昵称
 typedef void (^SelectedCellBtnBlock)(BaseCell * cell,CommentType type);  //点击bottomViewbtn
 typedef void (^SelectedCellMoreBtn)(UITableViewCell *cell);
 

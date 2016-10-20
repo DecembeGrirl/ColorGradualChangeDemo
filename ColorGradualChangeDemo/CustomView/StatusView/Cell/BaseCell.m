@@ -59,13 +59,6 @@
     tap.delegate = self;
     [_headImageView addGestureRecognizer:tap];
     [_nickNameLabel addGestureRecognizer:tap];
-    
-    
-    [GlobalHelper ShareInstance].selectedYYLabelRangeTextBlock=^(UIView * containerView, NSAttributedString * text, NSRange range, CGRect rect)
-    {        NSString * str = [[text string] substringWithRange:range];
-        UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
-        [alertView show];
-    };
 }
 
 -(void)setSubviewsFrame
@@ -115,34 +108,51 @@
     return _bottomView.bottom;
 }
 
--(void)layoutSubviews
+-(void)SelectLink
 {
-    [super layoutSubviews];
-    [self setSubviewsFrame];
+    [GlobalHelper ShareInstance].selectedYYLabelRangeTextBlock=^(UIView * containerView, NSAttributedString * text, NSRange range, CGRect rect)
+    {
+        NSString * str = [[text string] substringWithRange:range];
+        NSLog(@"%@",str);
+        BaseCell * cell;
+        if([[containerView superview] isKindOfClass:[RetweetedStatusView class]])
+            cell = (BaseCell *)[[[containerView superview]superview]superview];
+        else
+            cell = (BaseCell *)[[containerView superview]superview];
+        if([str hasPrefix:@"http://"])
+        {
+            [cell.delegate SelectedURL:str];
+        }
+        else if([str hasPrefix:@"@"])
+        {
+            if([[containerView superview] isKindOfClass:[RetweetedStatusView class]])
+                [cell.delegate SelectedUserName:cell.statusObj.retweeted_status];
+            else /*if([containerView isKindOfClass:[BaseCell class]])*/
+                 [cell.delegate SelectedUserName:cell.statusObj];
+        }
+        else if([str hasPrefix:@"#"])
+            NSLog(@"%@",str);
+    };
 }
-
 
 #pragma mark -BottomToolViewDelegate
 -(void)SelectedBottomViewBtn:(UIButton *)btn btnType:(CommentType)type
 {
     [self.delegate SelectedCellBtn:self btnType:type];
 }
-
 -(void)HandleTapGesture
 {
-    [self.delegate SelectedNameOrHeader:self];
+    [self.delegate SelectedNameOrHeader:self.statusObj];
 }
 -(void)setHeadImageUserInterActionEnable:(BOOL)userInaterActionEnable
 {
     _headImageView.userInteractionEnabled = userInaterActionEnable;
     _nickNameLabel.userInteractionEnabled = userInaterActionEnable;
 }
-
 -(void)ClickMoreBtn:(UIButton *)btn
 {
     [self.delegate SelectedMoreBtn:self];
 }
-
 -(void)setMoreBtnImageWithImage
 {    if(self.statusObj.favorited)
     {

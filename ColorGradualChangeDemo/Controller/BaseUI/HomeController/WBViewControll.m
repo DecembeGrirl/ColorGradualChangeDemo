@@ -156,10 +156,10 @@
         };
         [weakselfNavigationController pushViewController:VC animated:YES];
     };
-    self.tableViewDelegate.selectedNameOrHeaderBlock= ^(BaseCell *cell){
+    self.tableViewDelegate.selectedNameOrHeaderBlock= ^(Statuses * statusObj){
         UserHomeController * VC = [[UserHomeController alloc
                                     ]init];
-        VC.userObj = cell.statusObj.user;
+        VC.userObj = statusObj.user;
         [weakselfNavigationController pushViewController:VC animated:YES];
     };
     //    self.tableViewDelegate.downLoadWeibo = ^()
@@ -176,6 +176,7 @@
     self.tableViewDelegate.selectedURL= ^(NSString * URLStr)
     {
         WebViewController * VC = [[WebViewController alloc]init];
+        VC.urlString = URLStr;
         [weakSelf.navigationController pushViewController:VC animated:YES];
     };
     //    self.tableViewDelegate.selectedPhotoBlock = ^(UITableViewCell * cell)
@@ -242,8 +243,6 @@
     [GlobalHelper ShareInstance].user =user;
     [self ConfigNavBar];
 }
-
-
 -(void)SuccessCreatFavorites:(NSDictionary *)dic
 {
     Statuses * obj = [Statuses mj_objectWithKeyValues:dic[Kstatus]];
@@ -308,7 +307,7 @@
 
 #pragma mark -查看大图
 #pragma mark - userPhotoTableViewCellDelegate
--(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
+-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath currentImage:(UIImage *)image images:(NSArray *)array inView:(UIView *)view
 {
     self.tabBarController.tabBar.hidden = YES;
     _imageContentView =(UserPhotoCollectionView *)view;
@@ -320,7 +319,7 @@
     big.delegate = self;
     [self.view addSubview:big];
     [big ConfigData:array ImageView:imageView atIndex:indexpath.row];
-    [big CreatSelectedView:tempView AndFrame:toViewframe];
+    [big CreatSelectedView:tempView AndFrame:toViewframe currentIamge:image];
 }
 
 

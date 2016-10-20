@@ -92,6 +92,7 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIImage *clipImage = image.images?image.images[0]:image;
+                self.currentImage = clipImage;
                 UIImage * tempImage = [weakself ClipImage:clipImage withRect:imageView.frame];
                 [imageView setImage:tempImage];
                 [_images replaceObjectAtIndex:indexPath.row withObject:tempImage];
@@ -119,9 +120,10 @@
     UICollectionViewCell * cell = [self collectionView:collectionView cellForItemAtIndexPath:indexPath];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIImageView * imageView = (UIImageView *)cell.contentView.subviews.lastObject;
-            NSLog(@"%@",imageView.image);
-     [self.delegate selectedImageView:cell atIndexPath:indexPath images:dataArray inView:self];
+//        UIImageView * imageView = (UIImageView *)cell.contentView.subviews.lastObject;
+//            NSLog(@"%@",imageView.image);
+//     [self.delegate selectedImageView:cell atIndexPath:indexPath images:dataArray inView:self];
+        [self.delegate selectedImageView:cell atIndexPath:indexPath currentImage:self.currentImage images:dataArray inView:self];
     });
 }
 
@@ -150,15 +152,15 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     
     if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]&& touch.view != _myCollectionView ) {
-        CGPoint tapPoint = [touch locationInView:_myCollectionView];
-        if([self canPerformAction:@selector(collectionView:didSelectItemAtIndexPath:) withSender:self] )
-        {
+//        CGPoint tapPoint = [touch locationInView:_myCollectionView];
+//        if([self canPerformAction:@selector(collectionView:didSelectItemAtIndexPath:) withSender:self] )
+//        {
 //            if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
 //            {
 //                NSIndexPath *indexPath = [_myCollectionView indexPathForItemAtPoint:tapPoint];
 //                [self collectionView:_myCollectionView didSelectItemAtIndexPath:indexPath];
-////            }
-        }
+//            }
+//        }
         return NO;
     }
     return YES;

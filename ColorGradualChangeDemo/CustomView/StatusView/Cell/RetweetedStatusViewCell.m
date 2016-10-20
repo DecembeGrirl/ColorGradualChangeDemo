@@ -15,13 +15,6 @@
     {
         self.retweetedStatusView = [[RetweetedStatusView alloc]init];
         [self.contentView addSubview:self.retweetedStatusView];
-//        [GlobalHelper ShareInstance].selectedYYLabelRangeTextBlock=^(UIView * containerView, NSAttributedString * text, NSRange range, CGRect rect)
-//        {
-//            NSString * str = [[text string] substringWithRange:range];
-//            UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
-//            [alertView show];
-//        };
-
     }
     return  self;
 }

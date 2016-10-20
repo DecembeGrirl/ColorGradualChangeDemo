@@ -80,7 +80,6 @@
 {
     CGRect frame = [[view superview] convertRect:view.frame toView:[UIScreen mainScreen].focusedView];
 //    [self setFrame:CGRectMake(frame.origin.x, frame.origin.y, view.size.width, 0)];
-    
     [UIView animateWithDuration:0.25f animations:^{
         CGRect newFrame = frame;
         newFrame.origin.y = frame.origin.y ;

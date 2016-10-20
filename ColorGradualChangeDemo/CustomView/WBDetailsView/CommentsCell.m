@@ -52,8 +52,16 @@
     
     [GlobalHelper ShareInstance].selectedYYLabelRangeTextBlock=^(UIView * containerView, NSAttributedString * text, NSRange range, CGRect rect)
     {        NSString * str = [[text string] substringWithRange:range];
-        UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
-        [alertView show];
+//        UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
+        NSLog(@"点击了评论的 cell中的超链接");
+        if([str hasPrefix:@"http://"])
+        {
+        
+        }else
+        {
+        
+        }
+//        [alertView show];
     };
 }
 
