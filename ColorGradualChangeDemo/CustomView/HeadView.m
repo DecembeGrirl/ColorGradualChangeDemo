@@ -94,7 +94,7 @@
     }];
     NSString * friendsCount = [obj.friends_count intValue]>10000?[NSString stringWithFormat:@"%d万",[obj.friends_count intValue]%10000]:[NSString stringWithFormat:@"%d",[obj.friends_count intValue]];
     _friendsLabel.text = [_friendsLabel.text stringByAppendingString:friendsCount];
-//    _friendsCountLableSize = [GlobalHelper boundingRectWithLable:_friendsLabel Size:CGSizeMake(MAXFLOAT, 14)];
+//   _friendsCountLableSize = [GlobalHelper boundingRectWithLable:_friendsLabel Size:CGSizeMake(MAXFLOAT, 14)];
     _friendsCountLableSize =[GlobalHelper boundingRectString:_friendsLabel.text Size:CGSizeMake(MAXFLOAT, 14) Font:14.0f];
     NSString * folloewsCount = [obj.followers_count intValue]>10000? [NSString stringWithFormat:@"%d万",[obj.followers_count intValue]%10000]:[NSString stringWithFormat:@"%d",[obj.followers_count intValue]];
     _followsLabel.text = [_followsLabel.text stringByAppendingString:folloewsCount];

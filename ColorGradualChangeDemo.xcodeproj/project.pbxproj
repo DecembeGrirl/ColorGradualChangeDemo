@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E50DD95A1C33DA8B0082FBDD /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50DD9591C33DA8B0082FBDD /* HeadView.m */; };
+		E514DABB1DF7DC9400922CFD /* ComboBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = E514DAB91DF7DC9400922CFD /* ComboBoxView.m */; };
+		E514DABC1DF7DC9400922CFD /* icon_comboBox_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E514DABA1DF7DC9400922CFD /* icon_comboBox_bg.png */; };
+		E514DABF1DF7E71D00922CFD /* MyLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E514DABE1DF7E71D00922CFD /* MyLocationViewController.m */; };
 		E5207F241D37802A009D8D2F /* ImageContenCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5207F231D37802A009D8D2F /* ImageContenCollectionView.m */; };
 		E520A5151D7ECDB900BCCBA8 /* navigationbar_friendattention_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E520A50D1D7ECDB900BCCBA8 /* navigationbar_friendattention_highlighted@2x.png */; };
 		E520A5161D7ECDB900BCCBA8 /* navigationbar_friendattention_highlighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E520A50E1D7ECDB900BCCBA8 /* navigationbar_friendattention_highlighted@3x.png */; };
@@ -225,7 +228,6 @@
 		E5933BB51C3CF56900E855B3 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E5933BA51C3CF56900E855B3 /* UIRefreshControl+AFNetworking.m */; };
 		E5933BB61C3CF56900E855B3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E5933BA71C3CF56900E855B3 /* UIWebView+AFNetworking.m */; };
 		E5933BC41C3D0A9C00E855B3 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5933BB81C3D0A9C00E855B3 /* libWeiboSDK.a */; };
-		E5933BC51C3D0A9C00E855B3 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E5933BC11C3D0A9C00E855B3 /* WeiboSDK.bundle */; };
 		E5933BC71C3D0B0E00E855B3 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E5933BC61C3D0B0E00E855B3 /* libsqlite3.0.tbd */; };
 		E5933BC91C3D0B5B00E855B3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5933BC81C3D0B5B00E855B3 /* Security.framework */; };
 		E5933BCB1C3D0BC100E855B3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5933BCA1C3D0BC100E855B3 /* CoreTelephony.framework */; };
@@ -319,6 +321,7 @@
 		E59847211D26748500092C51 /* compose_keyboardbutton_background_highlighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E598471D1D26748500092C51 /* compose_keyboardbutton_background_highlighted@3x.png */; };
 		E59847221D26748500092C51 /* compose_keyboardbutton_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E598471E1D26748500092C51 /* compose_keyboardbutton_background@2x.png */; };
 		E59847231D26748500092C51 /* compose_keyboardbutton_background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E598471F1D26748500092C51 /* compose_keyboardbutton_background@3x.png */; };
+		E5986EEA1E485C7F00E90887 /* AddImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5986EE91E485C7F00E90887 /* AddImageItem.m */; };
 		E5A393B41D29F869005780C5 /* messagescenter_at@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A393AC1D29F869005780C5 /* messagescenter_at@2x.png */; };
 		E5A393B51D29F869005780C5 /* messagescenter_at@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A393AD1D29F869005780C5 /* messagescenter_at@3x.png */; };
 		E5A393B61D29F869005780C5 /* messagescenter_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A393AE1D29F869005780C5 /* messagescenter_comments@2x.png */; };
@@ -465,6 +468,11 @@
 /* Begin PBXFileReference section */
 		E50DD9581C33DA8B0082FBDD /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
 		E50DD9591C33DA8B0082FBDD /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
+		E514DAB81DF7DC9400922CFD /* ComboBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboBoxView.h; sourceTree = "<group>"; };
+		E514DAB91DF7DC9400922CFD /* ComboBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComboBoxView.m; sourceTree = "<group>"; };
+		E514DABA1DF7DC9400922CFD /* icon_comboBox_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_comboBox_bg.png; sourceTree = "<group>"; };
+		E514DABD1DF7E71D00922CFD /* MyLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocationViewController.h; sourceTree = "<group>"; };
+		E514DABE1DF7E71D00922CFD /* MyLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLocationViewController.m; sourceTree = "<group>"; };
 		E5207F221D37802A009D8D2F /* ImageContenCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContenCollectionView.h; sourceTree = "<group>"; };
 		E5207F231D37802A009D8D2F /* ImageContenCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContenCollectionView.m; sourceTree = "<group>"; };
 		E520A50D1D7ECDB900BCCBA8 /* navigationbar_friendattention_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_friendattention_highlighted@2x.png"; sourceTree = "<group>"; };
@@ -808,7 +816,6 @@
 		E5933BBE1C3D0A9C00E855B3 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
 		E5933BBF1C3D0A9C00E855B3 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
 		E5933BC01C3D0A9C00E855B3 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
-		E5933BC11C3D0A9C00E855B3 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		E5933BC21C3D0A9C00E855B3 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		E5933BC31C3D0A9C00E855B3 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
 		E5933BC61C3D0B0E00E855B3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -919,6 +926,8 @@
 		E598471D1D26748500092C51 /* compose_keyboardbutton_background_highlighted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_keyboardbutton_background_highlighted@3x.png"; sourceTree = "<group>"; };
 		E598471E1D26748500092C51 /* compose_keyboardbutton_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_keyboardbutton_background@2x.png"; sourceTree = "<group>"; };
 		E598471F1D26748500092C51 /* compose_keyboardbutton_background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_keyboardbutton_background@3x.png"; sourceTree = "<group>"; };
+		E5986EE81E485C7F00E90887 /* AddImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageItem.h; sourceTree = "<group>"; };
+		E5986EE91E485C7F00E90887 /* AddImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageItem.m; sourceTree = "<group>"; };
 		E5A393AC1D29F869005780C5 /* messagescenter_at@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messagescenter_at@2x.png"; sourceTree = "<group>"; };
 		E5A393AD1D29F869005780C5 /* messagescenter_at@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messagescenter_at@3x.png"; sourceTree = "<group>"; };
 		E5A393AE1D29F869005780C5 /* messagescenter_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messagescenter_comments@2x.png"; sourceTree = "<group>"; };
@@ -1179,6 +1188,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E514DAB71DF7DC9400922CFD /* ComboxView */ = {
+			isa = PBXGroup;
+			children = (
+				E514DAB81DF7DC9400922CFD /* ComboBoxView.h */,
+				E514DAB91DF7DC9400922CFD /* ComboBoxView.m */,
+				E514DABA1DF7DC9400922CFD /* icon_comboBox_bg.png */,
+			);
+			path = ComboxView;
+			sourceTree = "<group>";
+		};
 		E5387D341CB3B0360089D685 /* TableViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1992,7 +2011,6 @@
 				E5933BBE1C3D0A9C00E855B3 /* WBSDKBasicButton.h */,
 				E5933BBF1C3D0A9C00E855B3 /* WBSDKCommentButton.h */,
 				E5933BC01C3D0A9C00E855B3 /* WBSDKRelationshipButton.h */,
-				E5933BC11C3D0A9C00E855B3 /* WeiboSDK.bundle */,
 				E5933BC21C3D0A9C00E855B3 /* WeiboSDK.h */,
 				E5933BC31C3D0A9C00E855B3 /* WeiboUser.h */,
 			);
@@ -2171,9 +2189,20 @@
 			path = emoticon;
 			sourceTree = "<group>";
 		};
+		E5986EE71E485C7F00E90887 /* AddImage */ = {
+			isa = PBXGroup;
+			children = (
+				E5986EE81E485C7F00E90887 /* AddImageItem.h */,
+				E5986EE91E485C7F00E90887 /* AddImageItem.m */,
+			);
+			path = AddImage;
+			sourceTree = "<group>";
+		};
 		E59A96341C2CF43F0016A862 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				E5986EE71E485C7F00E90887 /* AddImage */,
+				E514DAB71DF7DC9400922CFD /* ComboxView */,
 				E550F0A51D7EADB200C7BB99 /* UserInfoPhoto */,
 				E5837E9F1D334E4F00A4D0D5 /* MySelf */,
 				E5D541FC1C9FA30700DF65DC /* CustomKeyboard */,
@@ -2310,6 +2339,8 @@
 			children = (
 				E5CD09851C8D198C00A7DBC1 /* TransmitViewController.h */,
 				E5CD09861C8D198C00A7DBC1 /* TransmitViewController.m */,
+				E514DABD1DF7E71D00922CFD /* MyLocationViewController.h */,
+				E514DABE1DF7E71D00922CFD /* MyLocationViewController.m */,
 			);
 			path = Transmit;
 			sourceTree = "<group>";
@@ -2656,6 +2687,7 @@
 				E5D857E41C8D6B8900F23DAA /* message_topic@2x.png in Resources */,
 				E598471A1D2654D700092C51 /* Expression_8.png in Resources */,
 				E538C3831C2A9A81009A0A68 /* image.jpg in Resources */,
+				E514DABC1DF7DC9400922CFD /* icon_comboBox_bg.png in Resources */,
 				E59847021D2654D700092C51 /* Expression_40.png in Resources */,
 				E59846FC1D2654D700092C51 /* Expression_35.png in Resources */,
 				E5D857DE1C8D6B8900F23DAA /* message_keyboard_background@2x.png in Resources */,
@@ -2716,7 +2748,6 @@
 				E5D857E71C8D6B8900F23DAA /* messages_bubble_button_checkmark@3x.png in Resources */,
 				E57980451CB4F500001AC9FA /* AssetsPickerChecked@2x.png in Resources */,
 				E598470B1D2654D700092C51 /* Expression_49.png in Resources */,
-				E5933BC51C3D0A9C00E855B3 /* WeiboSDK.bundle in Resources */,
 				E56C302B1D2D066A00677550 /* tabbar_compose_wbcamera@3x.png in Resources */,
 				E5618E061C4C8F7F004F45B5 /* tabbar_discover@3x.png in Resources */,
 				E5D027E51D80FAA500CB8DED /* tabbar_compose_background_icon_close@3x.png in Resources */,
@@ -2976,6 +3007,7 @@
 				E5933BAE1C3CF56900E855B3 /* AFAutoPurgingImageCache.m in Sources */,
 				E5933BAB1C3CF56900E855B3 /* AFURLRequestSerialization.m in Sources */,
 				E570608B1D2B580500E88F66 /* Geo.m in Sources */,
+				E514DABF1DF7E71D00922CFD /* MyLocationViewController.m in Sources */,
 				E5D542461C9FD3CA00DF65DC /* YYTextAttribute.m in Sources */,
 				E57980531CB4F500001AC9FA /* YSHYAssetPickerController.m in Sources */,
 				E56A7EE81C52084400F7A6BF /* UIScrollView+MJRefresh.m in Sources */,
@@ -3008,6 +3040,7 @@
 				E5A930721C40A49B00E0A665 /* SDWebImageDecoder.m in Sources */,
 				E5D5423E1C9FD3CA00DF65DC /* YYTextEffectWindow.m in Sources */,
 				E56A7EE71C52084400F7A6BF /* UIScrollView+MJExtension.m in Sources */,
+				E5986EEA1E485C7F00E90887 /* AddImageItem.m in Sources */,
 				E56A7EDE1C52084400F7A6BF /* MJRefreshAutoStateFooter.m in Sources */,
 				E5EF2B691C4E093A00ABBAE6 /* ShowBigView.m in Sources */,
 				E5E6C3BE1C926B0C00466981 /* PullDownView.m in Sources */,
@@ -3035,6 +3068,7 @@
 				E5D542431C9FD3CA00DF65DC /* YYTextMagnifier.m in Sources */,
 				E5964DF01C3F99DE0067C884 /* StatusObj.m in Sources */,
 				E57060851D2B4A9E00E88F66 /* User.m in Sources */,
+				E514DABB1DF7DC9400922CFD /* ComboBoxView.m in Sources */,
 				E550F0AF1D7EAF2700C7BB99 /* FrinedFollowingController.m in Sources */,
 				E5B7D6311C4C83AC0080946E /* WBViewControll.m in Sources */,
 				E57980551CB4F500001AC9FA /* YSHYAssetViewController.m in Sources */,

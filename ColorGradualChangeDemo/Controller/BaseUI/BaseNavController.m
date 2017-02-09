@@ -23,7 +23,6 @@
 //    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     
     [self.navigationBar setHidden:YES];
-//    self.tabBarItem
 }
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated

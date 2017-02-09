@@ -28,8 +28,6 @@
     [self ConfigUI];
     self.delegate = self;
 }
-
-
 -(void)ConfigUI
 {
     WBViewControll *homeVC = [[WBViewControll alloc]init];
@@ -57,7 +55,6 @@
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:RGB_COLOR(@"#5f656c")} forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:RGB_COLOR(@"#e73f5f")} forState:UIControlStateSelected];
 }
-
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
     BaseNavController * VC = tabBarController.selectedViewController;
@@ -79,8 +76,6 @@
     }
     return YES;
 }
-
-
 - (UIImage *) captureScreen {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     CGRect rect = [keyWindow bounds];
@@ -91,6 +86,4 @@
     UIGraphicsEndImageContext();
     return img;
 }
-
-
 @end

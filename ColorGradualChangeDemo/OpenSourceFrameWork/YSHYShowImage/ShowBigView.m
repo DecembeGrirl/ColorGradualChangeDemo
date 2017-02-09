@@ -103,12 +103,13 @@
         [weakself.selectedView setImage:self.selectedDisplayImage];
         CGFloat height = weakself.selectedView.image.size.height/weakself.selectedView.image.size.width * weakself.width;
 //        CGFloat height1 = self.selectedDisplayImage.size.height/self.selectedDisplayImage.size.width * weakself.width;
-        if(height)
-        {
+        height == NAN?weakself.selectedView.frame.size.height:height;
+//        if(height)
+//        {
             [weakself.selectedView setFrame:CGRectMake(0, 0, weakself.width, height)];
             if(height < weakself.height)
                 [weakself.selectedView setCenter:weakself.center];
-        }
+//        }
     } completion:^(BOOL finished) {
         weakself.selectedView.hidden = YES;
         weakself->_scrollerview.hidden = NO;

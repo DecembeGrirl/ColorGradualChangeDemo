@@ -21,9 +21,11 @@
 #import "WebViewController.h"
 #import "PQActionSheet.h"
 #import "MJExtension.h"
+#import "ComboBoxView.h"
 #import "FrinedFollowingController.h"
 //#define headImageheight  200
-@interface WBViewControll ()<UIGestureRecognizerDelegate,WBHttpRequestDelegate,RetweetedStatusViewDelegate,ShowBigViewDelegate,SearchBarDelegate,userPhotoCollectionViewDelegate,StatusViewForImageCellDelegate>
+@interface WBViewControll ()<UIGestureRecognizerDelegate,WBHttpRequestDelegate,RetweetedStatusViewDelegate,ShowBigViewDelegate,SearchBarDelegate,userPhotoCollectionViewDelegate,StatusViewForImageCellDelegate,ComboBoxViewdelegate>
+@property (nonatomic, strong)ComboBoxView * comboBoxView;
 @end
 
 @implementation WBViewControll
@@ -84,6 +86,22 @@
     [self.customNav setLeftNavButton:[[self.customNav class]createNavButtonByImageNormal:@"navigationbar_friendattention" imageSelected:@"navigationbar_friendattention_highlighted" target:self action:@selector(HandleLeftNavBtn:)]];
     
     [self.customNav setRightNavButton:[[self.customNav class]createNavButtonByImageNormal:@"navigationbar_icon_radar" imageSelected:@"navigationbar_icon_radar_highlighted" target:self action:@selector(HandleRightNavBtn:)]];
+}
+
+-(ComboBoxView *)comboBoxView
+{
+    if(!_comboBoxView)
+    {
+        _comboBoxView = [[ComboBoxView alloc]init];
+        _comboBoxView.delegate = self;
+        [self.view addSubview:_comboBoxView];
+        _comboBoxView.hidden = YES;
+        [_comboBoxView setFrame:self.view.bounds];
+
+        _comboBoxView.titleArray = @[@"雷达",@"扫一扫",@"打车"];
+        _comboBoxView.titleImageArray = @[@"",@"",@""];
+    }
+    return _comboBoxView;
 }
 
 -(void)ShowHUDWithMessage:(NSString *)message afterDelay:(CGFloat)delay
@@ -192,6 +210,9 @@
     __block typeof(self)weakself = self;
     [RequsetStatusService shareInstance].successBlock=^(NSData *data , WBHttpRequest *request)
     {
+        [weakself.table.mj_footer endRefreshing];
+        [weakself.table.mj_header endRefreshing];
+        
         NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         [weakself->_hud hide:YES];
         
@@ -211,6 +232,9 @@
     };
     [RequsetStatusService shareInstance].fialedBlock =^(NSError *error)
     {
+        [weakself.table.mj_footer endRefreshing];
+        [weakself.table.mj_header endRefreshing];
+        
         weakself->_hud.hidden = YES;
         [[GlobalHelper ShareInstance]ShowHUD:_hud WithMessage:@"啊哦~网络请求出错了~" afterDelay:1.5f inView:weakself.view];
         [weakself.table.mj_header endRefreshing];
@@ -285,7 +309,9 @@
 
 -(void)HandleRightNavBtn:(UIButton *)btn
 {
-    NSLog(@"点击了rightNavBar");
+//    NSLog(@"点击了rightNavBar");
+    self.comboBoxView.hidden = !self.comboBoxView.hidden;
+   
 }
 
 -(void)HandleTapGestureForRetweetedStatusView:(RetweetedStatusView *)retweetedStatusView

@@ -43,10 +43,10 @@
                                 [weakSelf->_tableView.mj_header endRefreshing];
                             }];
     
-    _searchBar = [[SearchBar alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 35)];
-    _searchBar.type = CanNotEditType;
-    _searchBar.delegate= self;
-    _tableView.tableHeaderView =_searchBar;
+//    _searchBar = [[SearchBar alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 35)];
+//    _searchBar.type = CanNotEditType;
+//    _searchBar.delegate= self;
+//    _tableView.tableHeaderView =_searchBar;
     
     self.tableViewDelegate =[[MessageTableViewDelegate alloc]init];
     [self.tableViewDelegate registTableView:_tableView Data:nil];
@@ -65,7 +65,6 @@
     [leftBtn setTitle:@"发现群" forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [self.customNav setLeftNavButton:leftBtn];
-    
     [self.customNav setRightNavButton:[[self.customNav class]createNavButtonByImageNormal:@"navigationbar_icon_radar" imageSelected:@"navigationbar_icon_radar_highlighted" target:self action:@selector(HandleRightNavBtn:)]];
 }
 

@@ -73,7 +73,6 @@
     [_contentTextLabel setFrame:CGRectMake(5, _headImageView.bottom + 2, contentTextSize.width ,contentTextSize.height )];
     [_moreBtn setFrame:CGRectMake(self.width - 40, _headImageView.top, 35, 35)];
     [_bottomView setFrame:CGRectMake(0,_contentTextLabel.bottom + 2, KScreenWidth, BottomToolViewHeight)];
-    
 }
 
 -(void)ConfigCellWithIndexPath:(NSIndexPath *)indexPath Data:(id)data cellType:(CellType)cellType
@@ -162,6 +161,4 @@
         [_moreBtn setImage:[UIImage imageNamed:@"more_icon_collection_selected"] forState:UIControlStateNormal];
     }
 }
-
-
 @end

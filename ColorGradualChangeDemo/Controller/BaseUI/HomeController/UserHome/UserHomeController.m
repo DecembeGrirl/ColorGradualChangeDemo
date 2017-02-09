@@ -179,6 +179,12 @@
         photoCell.photoCollectionView.delegate = weakSelf;
         
     };
+    self.tableViewDelegate.selectedUserNameBlock = ^(Statuses * statusesObj)
+    {
+        UserHomeController * VC = [[UserHomeController alloc]init];
+        VC.userObj = statusesObj.user;
+        [weakSelf.navigationController pushViewController:VC animated:YES];
+    };
     
     self.tableViewDelegate.userObj= self.userObj;
 }
@@ -458,6 +464,7 @@
 }
 //-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
 //{
+
 //    self.tabBarController.tabBar.hidden = YES;
 //    _imageContentView =(UserPhotoCollectionView *)view;
 //    UIImageView * imageView = cell.contentView.subviews.lastObject;
@@ -500,6 +507,7 @@
     _tableView.contentInset = UIEdgeInsetsMake(-_tableView.contentOffset.y-1, 0, 0, 0);
     [_tableView reloadData];
 }
+
 
 
 @end

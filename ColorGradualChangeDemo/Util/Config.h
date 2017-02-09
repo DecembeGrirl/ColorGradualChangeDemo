@@ -28,6 +28,9 @@
 
 #define KURLGetTrends_hourly @"https://api.weibo.com/2/trends/hourly.json" // 返回最近一小时内的热门话题
 
+// 附近位置
+#define LURLGetNearByLocation @"https://api.weibo.com/2/place/nearby/pois.json"
+
 
 
 
@@ -99,6 +102,7 @@
 #define KTagGetUserPhotoInfo     @"GetUserPhotoInfo"
 #define KTagShortURLToLongURL    @"ShortURLToLongURL"
 #define KTagTrends_hourly        @"Trends_hourly"
+#define KTagNearbyLocation       @"NearbyLocation"
 
 
 #define KComments @"comments"

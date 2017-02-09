@@ -28,10 +28,10 @@
     [self addSubview:self.searchBar];
     
     _hotSearchView = [[UIView alloc]initWithFrame:CGRectMake(0, self.searchBar.bottom, self.width, self.height- self.searchBar.bottom)];
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, _hotSearchView.width, 25)];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    label.text = @"我是热搜榜哈哈哈";
-    [_hotSearchView addSubview:label];
+    _label = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, _hotSearchView.width, 25)];
+    [_label setTextAlignment:NSTextAlignmentCenter];
+    _label.text = @"我是热搜榜哈哈哈";
+    [_hotSearchView addSubview:_label];
     [_hotSearchView setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:_hotSearchView];
     
@@ -48,6 +48,7 @@
 
 -(void)selectedCancelBtn:(UIButton *)sendder
 {
+    [self endEditing:YES];
     self.hidden = YES;
     self.selectedSearchBarCancelBtnBlock();
 }
@@ -69,13 +70,16 @@
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    [self endEditing:YES];
     _pullDownView.hidden = YES;
+    self.hidden = YES;
+    self.selectedSearchBarCancelBtnBlock();
 }
 
 -(void)SearchBarBecomeFirstResponder
 {
-     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    [self.searchBar.textField becomeFirstResponder];
+//     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+//    [self.searchBar.textField becomeFirstResponder];
 }
 
 

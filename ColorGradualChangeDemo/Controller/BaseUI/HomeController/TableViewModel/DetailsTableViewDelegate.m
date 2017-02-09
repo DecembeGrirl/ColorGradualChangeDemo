@@ -71,7 +71,6 @@
                  retweetedStatusViewCell.type = self.type;
                 retweetedStatusViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 retweetedStatusViewCell.delegate = self;
-
             }
             [retweetedStatusViewCell ConfigCellWithIndexPath:indexPath Data:self.dataSource[0] cellType:cellTypeOfDetails];
             self.configCellBlock(indexPath,nil,retweetedStatusViewCell);
@@ -186,7 +185,7 @@
 }
 -(void)SelectedCellBtn:(BaseCell *)cell btnType:(CommentType)type
 {
-//    self.selectedCellBtnBolck(cell,type);
+    self.selectedCellBtnBolck(cell,type);
     NSLog(@"跳转到微博正文页面 显示转发 评论部分");
 }
 -(void)SelectedMoreBtn:(BaseCell *)cell
@@ -194,6 +193,13 @@
     self.selectedCellMoreBtnBlock(cell);
 }
 
+-(void)SelectedUserName:(Statuses *)statusesObj
+{
+    self.selectedUserNameBlock(statusesObj);
+}
 
-
+-(void)SelectedURL:(NSString *)url
+{
+    self.selectedURLBlock(url);
+}
 @end

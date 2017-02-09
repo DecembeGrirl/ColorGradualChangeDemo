@@ -11,6 +11,8 @@
 #import "YSHYAssetPickerController.h"
 #import "FaceView.h"
 #import "GlobalHelper.h"
+
+#import "MyLocationViewController.h"
 @interface TransmitViewController ()<UITextViewDelegate,YSHYAssetPickerControllerDelegate,UINavigationControllerDelegate>
 
 @end
@@ -30,11 +32,19 @@
     if(self.type == REPORTTYPE)
     {
         [_reportsStatusView ConfigDataWith:self.obj];
-    }else
+    }else if(self.type == DEFULTTYPE)
+    {
+        _placehodlerLabel.text = @"分享新鲜事...";
+        [self.customNav.titleLabel setText:@"发微博"];
+        _reportsStatusView.hidden = YES;
+        [_bottomToolView.meanWhileCommentBtn setTitle:@"你在哪儿?" forState:UIControlStateNormal];
+    }
+    else
     {
         _placehodlerLabel.text = @"写评论...";
         [self.customNav.titleLabel setText:@"发评论"];
         _reportsStatusView.hidden = YES;
+         [_bottomToolView.meanWhileCommentBtn setTitle:@"同时评论?" forState:UIControlStateNormal];
     }
     [_textView becomeFirstResponder];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -126,6 +136,18 @@
 -(void)ConfigBottomToolView
 {
     __block typeof(self)weakSelf = self;
+    _bottomToolView.selectedMeanWhileCommentBtnBlock =^(ChatToolView * toolView,UIButton * btn)
+    {
+        if([btn.titleLabel.text isEqualToString:@"你在哪儿?"])
+        {
+            [weakSelf presentViewController:[[MyLocationViewController alloc]init] animated:YES completion:nil];
+        }
+        else
+        {
+        
+        }
+    };
+    
     _bottomToolView.selectedImageBtnBlock=^(ChatToolView * toolView,UIButton * btn)
     {
         YSHYAssetPickerController *picker = [[YSHYAssetPickerController alloc]init];

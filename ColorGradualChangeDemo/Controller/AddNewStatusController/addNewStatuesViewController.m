@@ -21,7 +21,6 @@
     backView = [[UIImageView alloc]initWithImage:self.backGroundImage];
     [backView setFrame:self.view.bounds];
     [self.view addSubview:backView];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -77,10 +76,12 @@
 
 - (void)blurEffectMenu:(BlurEffectMenu *)menu didTapOnItem:(BlurEffectMenuItem *)item{
     MainTabBarController *maintabBarVC =(MainTabBarController*) self.tabBarController;
+    
     maintabBarVC.selectedViewController =maintabBarVC.childViewControllers[self.index];
     [self dismissViewControllerAnimated:NO completion:^{
-        [self goToNextController:item];
+        
     }];
+    [self goToNextController:item];
 }
 
 -(void)goToNextController:(BlurEffectMenuItem *)item

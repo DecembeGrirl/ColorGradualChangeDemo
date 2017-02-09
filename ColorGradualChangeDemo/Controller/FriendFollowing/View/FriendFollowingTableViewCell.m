@@ -60,8 +60,9 @@
 -(void)handleFollowingBtn
 {
     NSLog(@"添加喽");
-    
-    
+    UIAlertView  *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"点击了添加按钮" delegate:self cancelButtonTitle:@"好" otherButtonTitles: nil];
+    [self addSubview:alertView];
+    [alertView show];
 }
 
 

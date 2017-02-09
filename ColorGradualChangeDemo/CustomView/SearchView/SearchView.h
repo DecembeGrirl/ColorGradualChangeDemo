@@ -14,10 +14,12 @@ typedef void(^SelectedSearchBarCancelBtnBlock)();
 @interface SearchView : UIView<SearchBarDelegate,PullDownViewDelegate>
 {
     PullDownView * _pullDownView;
-    UIView * _hotSearchView;
+   
     SearchBar *_searchBar;
     
 }
+@property (nonatomic, strong)UIView * hotSearchView;
+@property (nonatomic, strong)UILabel * label ;
 @property (nonatomic, strong)SearchBar *searchBar;
 @property (nonatomic, strong)SelectedSearchBarCancelBtnBlock selectedSearchBarCancelBtnBlock;
 -(void)SearchBarBecomeFirstResponder;

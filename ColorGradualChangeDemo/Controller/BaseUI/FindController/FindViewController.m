@@ -105,7 +105,6 @@
 
 -(void)getTrendHourly
 {
-
     __weak typeof(self) weakSelf = self;
     [[RequsetStatusService shareInstance] getTrendHourly];
     [RequsetStatusService shareInstance].successBlock = ^(NSData *data , WBHttpRequest *request)
@@ -117,13 +116,9 @@
         trendsArray  = [trendsDic objectForKey:[trendsDic allKeys][0]];
         [_dataArray  addObject:trendsArray];
         [weakSelf ConfigTableView];
-           
         }
-        
     };
 }
-
-
 
 -(void)CreatSomeData
 {
@@ -145,7 +140,6 @@
     [array3 addObject:@{@"image":@"tabbar_compose_wbcamera@2x",@"title":@"鲜城-北京",@"description":@"本地最有特色的美食福利推荐"}];
     [array3 addObject:@{@"image":@"tabbar_compose_more",@"title":@"更多",@"description":@""}];
     [_dataArray addObject:array3];
-    
 }
 
 @end

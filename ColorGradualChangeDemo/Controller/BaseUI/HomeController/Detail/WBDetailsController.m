@@ -89,8 +89,7 @@
         }
     };
     self.myTableViewDelegate.selectedNameOrHeaderBlock= ^(Statuses *statusObj){
-        UserHomeController * VC = [[UserHomeController alloc
-                                    ]init];
+        UserHomeController * VC = [[UserHomeController alloc]init];
         VC.userObj = statusObj.user;
         [weakselfNavigationController pushViewController:VC animated:YES];
     };
@@ -107,22 +106,35 @@
             
         }
     };
+    self.myTableViewDelegate.selectedUserNameBlock = ^(Statuses * statusesObj)
+    {
+        UserHomeController * VC = [[UserHomeController alloc]init];
+        VC.userObj = statusesObj.user;
+        [weakSelf.navigationController pushViewController:VC animated:YES];
+    };
+    
+    self.myTableViewDelegate.selectedCellBtnBolck = ^(BaseCell *cell,CommentType type)
+    {
+        TransmitViewController * VC= [[TransmitViewController alloc]init];
+        [weakSelf  presentViewController:VC animated:YES completion:nil];
+    };
    
-//    self.tableViewDelegate.selectedURL = ^(NSString * URLStr)
-//    {
-//    
-//    };
+    self.myTableViewDelegate.selectedURLBlock = ^(NSString * URLStr)
+    {
+        WebViewController * VC = [[WebViewController alloc]init];
+        [weakSelf.navigationController pushViewController:VC animated:YES];
+    };
 //    self.myTableViewDelegate.selectedURL= ^(NSString * URLStr)
 //    {
 //        WebViewController * VC = [[WebViewController alloc]init];
 //        [weakSelf.navigationController pushViewController:VC animated:YES];
 //    };
-    //    self.tableViewDelegate.selectedPhotoBlock = ^(UITableViewCell * cell)
-    //    {
-    //        StatusViewForImageCell * photoCell = (StatusViewForImageCell *)cell;
-    //        photoCell.imageContentView.delegate = weakSelf;
-    //
-    //    };
+        self.myTableViewDelegate.selectedPhotoBlock = ^(UITableViewCell * cell)
+        {
+            StatusViewForImageCell * photoCell = (StatusViewForImageCell *)cell;
+            photoCell.imageContentView.delegate = weakSelf;
+    
+        };
     
     self.myTableViewDelegate.dataSource = _dataArray;
 }
@@ -304,7 +316,7 @@
                                                                    break;
                                                            }
                                                        }];
-    [shareParams SSDKEnableUseClientShare];
+//    [shareParams SSDKEnableUseClientShare];
     //添加分享平台 及跳转到对应平台的分享页面
     [sheet.directSharePlatforms removeObject:@(SSDKPlatformTypeWechat)];
     [sheet.directSharePlatforms addObject:@(SSDKPlatformTypeSinaWeibo)];

@@ -38,4 +38,6 @@ typedef void(^FialedConnectNetworkingBlock)(NSError *error);
 -(void)ShortURLToLongURL:(NSString * )shortURL;
 
 -(void)getTrendHourly;
+
+-(void)getNearbyLocation:(NSDictionary *)dic;
 @end

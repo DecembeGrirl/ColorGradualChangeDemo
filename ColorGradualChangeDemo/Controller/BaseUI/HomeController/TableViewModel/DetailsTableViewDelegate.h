@@ -18,7 +18,9 @@ typedef void (^SelectedSearchCellBlock)(UITableViewCell * cell);
 typedef void (^SelectedCellNameOrHeader)(Statuses * statuses);//点击头像或者昵称
 typedef void (^SelectedCellBtnBlock)(BaseCell * cell,CommentType type);  //点击bottomViewbtn
 typedef void (^SelectedCellMoreBtn)(UITableViewCell *cell);
-
+typedef void (^SelectedUserName)(Statuses *statusesObj);
+typedef void (^SelectedURL)(NSString * URLStr);
+typedef void (^SelectedPhoto)(UITableViewCell * cell);
 
 @interface DetailsTableViewDelegate : NSObject<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate>
 @property (nonatomic, assign)CommentType type;
@@ -35,6 +37,11 @@ typedef void (^SelectedCellMoreBtn)(UITableViewCell *cell);
 @property (nonatomic, copy)SelectedCellNameOrHeader selectedNameOrHeaderBlock;
 
 @property (nonatomic, copy)SelectedCellBtnBlock selectedCellBtnBolck;
+
+@property (nonatomic, copy)SelectedUserName selectedUserNameBlock;
+
+@property (nonatomic, copy)SelectedURL selectedURLBlock;
+@property (nonatomic, copy)SelectedPhoto selectedPhotoBlock;
 
 @property (nonatomic, assign)NSInteger flag;
 

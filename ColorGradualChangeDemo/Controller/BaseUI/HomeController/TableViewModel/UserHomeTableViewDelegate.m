@@ -218,7 +218,7 @@
 
 -(void)SelectedCellBtn:(BaseCell *)cell btnType:(CommentType)type
 {
-    //    NSLog(<#NSString * _Nonnull format, ...#>)
+    //    NSLog(NSString * _Nonnull format, ...)
 }
 -(void)SelectedMoreBtn:(BaseCell *)cell
 {
@@ -228,6 +228,15 @@
 {
     NSLog(@"点击了 好友信息中的 status 的header");
 }
+
+-(void)SelectedUserName:(Statuses *)statusesObj
+{
+    NSLog(@"点击userName");
+    self.selectedUserNameBlock(statusesObj);
+    
+}
+
+
 
 //去掉UItableview headerview黏性(sticky)
 

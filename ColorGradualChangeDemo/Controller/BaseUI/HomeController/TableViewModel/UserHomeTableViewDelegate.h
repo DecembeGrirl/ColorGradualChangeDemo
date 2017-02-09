@@ -31,6 +31,7 @@ typedef void (^SelectedCellBlock)(UITableViewCell * cell);
 typedef void (^SelectedCellMoreBtn)(UITableViewCell *cell);
 
 typedef void (^SelectedUserPhoto)(UITableViewCell * cell);
+typedef void (^SelectedUserName)(Statuses *statusesObj);
 
 
 @interface UserHomeTableViewDelegate : NSObject<UITableViewDataSource,UITableViewDelegate,BaseCellDelegate,userPhotoCollectionViewDelegate>
@@ -43,6 +44,7 @@ typedef void (^SelectedUserPhoto)(UITableViewCell * cell);
 @property (nonatomic, copy)SelectedCellBlock selectedCellBlock;
 @property (nonatomic, copy)SelectedCellMoreBtn selectedCellMoreBtnBlock;
 @property (nonatomic, copy)SelectedUserPhoto selectedPhotoBlock;
+@property (nonatomic, copy)SelectedUserName selectedUserNameBlock;
 //@property (nonatomic, copy)ScrollViewWillBeginDecelerating scrollViewWillBeginDeceleratingBlock;
 
 

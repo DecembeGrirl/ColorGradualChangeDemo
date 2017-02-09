@@ -35,12 +35,17 @@ static RequsetStatusService *_instance= nil;
     //    {
     //     NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     //    if(!dataDic[@"error"])
-    self.successBlock(data,request);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.successBlock(data,request);
+    });
+    
     //    }
 }
 -(void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error
 {
-    self.fialedBlock(error);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.fialedBlock(error);
+    });
 }
 #pragma  mark - 获取微博个人信息
 -(void)FetchUserInfo
@@ -110,6 +115,12 @@ static RequsetStatusService *_instance= nil;
     NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
     NSDictionary * params = @{Kaccess_token:accessToken};
     [RequsetStatusService ConnectNetworkingWithURL:KURLGetTrends_hourly params:params connectType:@"GET" tag:KTagTrends_hourly];
+}
+-(void)getNearbyLocation:(NSDictionary *)dic
+{
+    NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
+    NSDictionary * params = @{Kaccess_token:accessToken,@"lat":dic[@"lat"],@"long":dic[@"long"]};
+    [RequsetStatusService ConnectNetworkingWithURL:LURLGetNearByLocation params:params connectType:@"GET" tag:KTagNearbyLocation];
 }
 
 @end

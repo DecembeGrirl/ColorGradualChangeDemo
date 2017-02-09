@@ -81,7 +81,10 @@
 {
    if(self.type == CanNotEditType)
     {
-        [self.delegate TextFiledBegingEdite];
+        if([self.delegate respondsToSelector:@selector(TextFiledBegingEdite)])
+        {
+            [self.delegate TextFiledBegingEdite];
+        }
     }
    else
    {

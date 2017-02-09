@@ -163,7 +163,6 @@
         }
     }
 }
-
 - (void)customBottomAnimation{
     for (UIView *view in self.view.subviews) {
         if ([view isKindOfClass:[UIButton class]]) {
