@@ -18,6 +18,8 @@
     UICollectionView * myCollectionView;
     NSArray * dataSource;
     
+//    UIView * _lineview;
+    
 }
 
 -(void)ConfigData:(NSArray *)array;

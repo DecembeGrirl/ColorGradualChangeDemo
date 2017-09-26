@@ -14,7 +14,6 @@ typedef void(^SelectedSearchBarCancelBtnBlock)();
 @interface SearchView : UIView<SearchBarDelegate,PullDownViewDelegate>
 {
     PullDownView * _pullDownView;
-   
     SearchBar *_searchBar;
     
 }

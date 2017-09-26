@@ -21,6 +21,8 @@
 @property (assign, nonatomic) int sendNumber;
 @property (nonatomic, strong) YSHYZoomScrollView *currentZoomScrollView;
 @property (nonatomic, strong) YSHYZoomScrollView * lastZoomScrollView;
+
+@property (nonatomic, strong) UIImage * displayImage;
 @end
 
 @implementation ShowBigView
@@ -32,8 +34,10 @@
 {
     if(self = [super initWithFrame:frame])
     {
+        self.backgroundColor = [UIColor blackColor];
         [self setBackgroundColor:[UIColor whiteColor]];
         _scrollerview = [[UIScrollView alloc]initWithFrame:frame];
+        _scrollerview.backgroundColor = [UIColor blackColor];
         self.showImageArrary = [[NSMutableArray alloc]initWithCapacity:5];
         [self CreatUI];
     }
@@ -100,20 +104,23 @@
     if(_bigImageArray.count> 0)
         [self showBigImage];
     [UIView animateWithDuration:0.3 animations:^{
-        [weakself.selectedView setImage:self.selectedDisplayImage];
-        CGFloat height = weakself.selectedView.image.size.height/weakself.selectedView.image.size.width * weakself.width;
-//        CGFloat height1 = self.selectedDisplayImage.size.height/self.selectedDisplayImage.size.width * weakself.width;
-        height == NAN?weakself.selectedView.frame.size.height:height;
+        
+        CGFloat height = 0;
+        CGFloat width = 0;
+            [weakself.selectedView setImage:self.selectedDisplayImage];
+            height = (weakself.selectedView.image.size.height/weakself.selectedView.image.size.width) * weakself.width;
+            width = weakself.width;
+        
+//         height == NAN?weakself.selectedView.frame.size.height:height;
 //        if(height)
 //        {
-            [weakself.selectedView setFrame:CGRectMake(0, 0, weakself.width, height)];
+            [weakself.selectedView setFrame:CGRectMake(0, 0, width, height)];
             if(height < weakself.height)
                 [weakself.selectedView setCenter:weakself.center];
 //        }
     } completion:^(BOOL finished) {
         weakself.selectedView.hidden = YES;
         weakself->_scrollerview.hidden = NO;
-        
     }];
 }
 -(void)showBigImage
@@ -131,21 +138,22 @@
         __block typeof(self) weakself = self;
         __block typeof(zoomScrollView) weakZoomScrollView = zoomScrollView;
         [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:thumbnail_pic_url] options:SDWebImageDelayPlaceholder progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            //            [weakZoomScrollView .imageView setImage:_bigImageArray[i]];
+            
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             if(!error)
             {
+                weakself.displayImage = image;
                 [weakZoomScrollView setImageViewFrame:image];
             }
         }];
         
         zoomScrollView.tapMRZoomScrollviewBlock = ^(YSHYZoomScrollView *view)
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
                 weakself.selectedView.hidden = NO;
                 weakself->_scrollerview.hidden = YES;
                 [weakself.delegate ShowBigViewDismiss:weakself selectedView:weakself.selectedView CurrentIndex:weakself.currentIndex images:_bigImageArray];
-            });
+//            });
         };
         [_scrollerview addSubview:zoomScrollView];
     }

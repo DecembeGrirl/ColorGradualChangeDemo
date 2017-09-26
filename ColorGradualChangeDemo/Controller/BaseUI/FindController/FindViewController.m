@@ -25,20 +25,23 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.customNav.hidden = YES;
+    
     _dataArray = [[NSMutableArray alloc]init];
     trendsArray = [[NSMutableArray alloc]init];
     [self CreatSearchBar];
     [self CreatSomeData];
-    [self getTrendHourly];
+    [self ConfigTableView];
+//    [self getTrendHourly];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self CreatSomeData];
-    [self getTrendHourly];
-//    [self ConfigTableView];
+    //    _centeBtn.hidden = NO;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
 }
+
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -98,8 +101,12 @@
 
 -(void)TextFiledBegingEdite
 {
+    [self.view endEditing:YES];
     _searchView.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+//    [_searchBar.textField resignFirstResponder];
+//    [_searchBar endEditing:YES];
+//    [_searchView.searchBar.textField becomeFirstResponder];
     [_searchView SearchBarBecomeFirstResponder];
 }
 
@@ -108,7 +115,6 @@
     __weak typeof(self) weakSelf = self;
     [[RequsetStatusService shareInstance] getTrendHourly];
     [RequsetStatusService shareInstance].successBlock = ^(NSData *data , WBHttpRequest *request)
-
     {
         NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSDictionary * trendsDic = dic[@"trends"];

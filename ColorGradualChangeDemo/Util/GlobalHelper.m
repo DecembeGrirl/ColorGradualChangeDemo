@@ -195,7 +195,7 @@ static GlobalHelper * instance = nil;
     return layout.textBoundingSize;
 }
 
--(UIImage *)ClipCirCleImage:(UIImage *)image
+-(UIImage *)ClipCirCleImage:(UIImage *)image size:(CGSize)size
 {
     CGFloat arcCenterX = image.size.width/ 2;
     CGFloat arcCenterY = image.size.height / 2;
@@ -203,7 +203,7 @@ static GlobalHelper * instance = nil;
     UIGraphicsBeginImageContext(image.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextBeginPath(context);
-    CGContextAddArc(context, arcCenterX , arcCenterY, image.size.width/ 2 , 0.0, 2*M_PI, NO);
+    CGContextAddArc(context, arcCenterX , arcCenterY,image.size.width/ 2 , 0.0, 2*M_PI, NO);
     CGContextClip(context);
     CGRect myRect = CGRectMake(0 , 0, image.size.width, image.size.height);
     [image drawInRect:myRect];

@@ -13,15 +13,6 @@
 
 -(void)setStatusWithData:(NSDictionary *)status
 {
-//    self.wbId = status[Kid];
-//    self.text = status[Ktext];
-//    self.favorited = status[Kfavorited];
-//    self.pic_urls = status[Kpic_urls];
-//    self.thumbnail_pic = status[Kthumbnail_pic_url];
-//    self.bmiddle_pic= status[Kbmiddle_pic_url];
-//    self.original_pic = status[Koriginal_pic_url];
-//    self.reposts_count = status[Kreposts_count];
-//    self.comments_count = status[Kcomments_count];
     self.attitudes_count = status[Kattitudes_count];
     NSDictionary * tempDic = status[Kretweeted_status];
     self.retweeted_status = [[StatusObj alloc]init];

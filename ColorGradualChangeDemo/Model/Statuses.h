@@ -14,7 +14,7 @@
 #import "MJExtension.h"
 @class  Statuses;
 @interface Statuses : NSObject
-@property (nonatomic, copy)NSNumber * ID;
+@property (nonatomic, copy) NSNumber * ID;
 @property (nonatomic, copy) NSString *idstr;
 @property (nonatomic, copy) NSString *created_at;
 @property (nonatomic, copy) NSString *text;
@@ -51,10 +51,26 @@
 @property (nonatomic, copy)NSString * rid;
 @property (nonatomic, copy)NSString * thumbnail_pic;
 
+@property (nonatomic, copy)NSAttributedString * retweetedContextAtr;
+@property (nonatomic, copy)NSAttributedString * contextAtr;
+
+
+
+@property (nonatomic, copy)NSMutableArray * cacheImageArr;
+@property (nonatomic, copy)NSMutableArray * thumbnail_picArr;
+
+@property (nonatomic, assign)CGFloat height;
+@property (nonatomic, assign)CGSize nameSize;
+@property (nonatomic, assign)CGSize statusContentTextSize;
+@property (nonatomic, assign)CGFloat statusContextHeight;
+@property (nonatomic, assign)CGSize retweetedContextSize;
+@property (nonatomic, assign)CGFloat retweetedContextHeight;
+@property (nonatomic, assign)CGFloat imageContextHeight;
+
 @property (nonatomic, strong)Geo *geo;
 
 
-
+-(void)setStatusOtherObj;
 -(CGFloat)getStatusesHight;
 -(CGFloat)getImageHight;
 @end

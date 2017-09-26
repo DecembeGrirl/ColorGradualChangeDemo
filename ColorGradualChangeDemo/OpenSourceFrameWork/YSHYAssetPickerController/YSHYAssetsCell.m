@@ -35,7 +35,7 @@
 {
     self.asset = assetObj.asset;
     _selectedImageView.hidden = assetObj.selectedImageHidden;
-    UIImage * tempImg = [UIImage imageWithCGImage:[self.asset thumbnail]];
+    UIImage * tempImg = [UIImage imageWithCGImage:[self.asset aspectRatioThumbnail]];
     [_imageView setImage:tempImg];
 }
 

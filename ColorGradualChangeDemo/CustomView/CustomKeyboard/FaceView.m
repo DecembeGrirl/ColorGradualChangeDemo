@@ -26,7 +26,7 @@
 
 -(id)initWithName:(NSString *)name andImage:(UIImage *)image
 {
-    if(self ==[super init])
+    if(self = [super init])
     {
         
         self.name = name;

@@ -36,6 +36,10 @@
     [_sublabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
     [_sublabel setTextColor:[UIColor grayColor]];
     [self addSubview:_sublabel];
+    
+    _lineView = [[UIView alloc]init];
+    [self addSubview:_lineView];
+    [_lineView setBackgroundColor:[UIColor colorWithRed:215.0f/255.0f green:215.0f/255.0f blue:215.0f/255.0f alpha:1]];
 }
 
 
@@ -49,6 +53,7 @@
     [_label setFrame:CGRectMake(_imageView.right + 5, _imageView.top + 5, titleSize.width, titleSize.height)];
     CGSize descriptionSize = [GlobalHelper boundingRectString:_sublabel.text Size:CGSizeMake(CGFLOAT_MAX, 15) Font:10.0f];
     [_sublabel setFrame:CGRectMake(_label.right+3, _label.top + 3, descriptionSize.width, descriptionSize.height)];
+    [_lineView setFrame:CGRectMake(0, self.frame.size.height-0.5, KScreenWidth, 0.5)];
 }
 
 @end

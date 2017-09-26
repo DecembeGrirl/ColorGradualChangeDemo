@@ -19,7 +19,8 @@
 
 @interface AddImageItem : UIView
 
--(instancetype)initIsEdit:(BOOL)isEdit;
+//-(instancetype)initIsEdit:(BOOL)isEdit;
+-(instancetype)initWithSize:(CGSize)size IsEdit:(BOOL)isEdit;
 @property (nonatomic, strong) UIImageView * myImageView;
 @property (nonatomic, strong)id<AddImageItemDelegate>delegate;
 @end

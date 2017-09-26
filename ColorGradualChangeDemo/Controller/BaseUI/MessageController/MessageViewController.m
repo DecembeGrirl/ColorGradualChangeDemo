@@ -25,6 +25,7 @@
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.customNav.bottom -38, KScreenWidth, KScreenHeight-35) style:UITableViewStylePlain];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 45, 0, 0);
     [_tableView setBackgroundColor:[UIColor clearColor]];
     [self.view insertSubview:_tableView belowSubview:self.customNav];
@@ -102,6 +103,13 @@
     [_searchView SearchBarBecomeFirstResponder];
 }
 
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
+}
 
 
 @end

@@ -15,6 +15,9 @@
     if(self = [super initWithFrame:frame])
     {
         [self CreatUI];
+        
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     }
     return  self;
 }
@@ -78,9 +81,11 @@
 
 -(void)SearchBarBecomeFirstResponder
 {
-//     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-//    [self.searchBar.textField becomeFirstResponder];
-}
+     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
+    [_searchBar.textField becomeFirstResponder];
+        _hotSearchView.hidden = YES;
+        [[NSNotificationCenter defaultCenter]postNotificationName:UIKeyboardWillShowNotification object:nil];
+}
 
 @end

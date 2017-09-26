@@ -43,7 +43,7 @@ typedef void(^SelectedYYLabelRangeText)(UIView * containerView, NSAttributedStri
 +(CGSize)CalculateYYlabelHeightAttributedString:(NSAttributedString *)atrText Size:(CGSize)size;
 
 
--(UIImage *)ClipCirCleImage:(UIImage *)image;
+-(UIImage *)ClipCirCleImage:(UIImage *)image size:(CGSize)size;
 
 -(MBProgressHUD *)ShowHUD:(MBProgressHUD *)hud WithMessage:(NSString *)message afterDelay:(CGFloat)delay inView:(UIView *)view;
 

@@ -19,6 +19,7 @@
         self.imageViewArray = [[NSMutableArray alloc]initWithCapacity:3];
         self.layer.drawsAsynchronously = YES;
         [self initViews];
+        self.opaque = YES;
     }
     return  self;
 }
@@ -27,23 +28,22 @@
 {
     _headImageView = [[UIImageView alloc]init];
     _headImageView.userInteractionEnabled = YES;
-    [_headImageView setBackgroundColor:[UIColor whiteColor]];
-    _headImageView.opaque = NO;
+//    [_headImageView setBackgroundColor:[UIColor whiteColor]];
+    _headImageView.opaque = YES;
     [self.contentView addSubview:_headImageView];
     
     _nickNameLabel = [[YYLabel alloc]init];
     [_nickNameLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
     _nickNameLabel.userInteractionEnabled = YES;
     _nickNameLabel.textColor = RGB_COLOR(@"#FFB669");
-    [_nickNameLabel setBackgroundColor:[UIColor whiteColor]];
+//    [_nickNameLabel setBackgroundColor:[UIColor whiteColor]];
     [self.contentView addSubview:_nickNameLabel];
     
     _contentTextLabel = [[YYLabel alloc]init];
     [_contentTextLabel setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
     _contentTextLabel.numberOfLines =0;
     _contentTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    [_contentTextLabel setBackgroundColor:[UIColor clearColor]];
-    [_contentTextLabel setBackgroundColor:[UIColor whiteColor]];
+//    [_contentTextLabel setBackgroundColor:[UIColor whiteColor]];
     [self.contentView addSubview:_contentTextLabel ];
     
     _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -63,15 +63,16 @@
 
 -(void)setSubviewsFrame
 {
+    
     [_headImageView setFrame:CGRectMake(5, 5,ceilf(headImageWidth) , ceilf(headImageWidth))];
     
-    CGSize nickNameSize = [GlobalHelper boundingRectString:_nickNameLabel.text Size:CGSizeMake(KScreenWidth, MAXFLOAT) Font:14.0f];
+    CGSize nickNameSize = self.statusObj.nameSize;
     [_nickNameLabel setFrame:CGRectMake(_headImageView.right + 2, _headImageView.top + 8, nickNameSize.width, nickNameSize.height)];
     
-    CGSize contentTextSize = [GlobalHelper CalculateYYlabelHeightAttributedString:_contentTextLabel.attributedText Size:CGSizeMake(KScreenWidth - 10, MAXFLOAT)];
-    
+    CGSize contentTextSize = self.statusObj.statusContentTextSize;
     [_contentTextLabel setFrame:CGRectMake(5, _headImageView.bottom + 2, contentTextSize.width ,contentTextSize.height )];
-    [_moreBtn setFrame:CGRectMake(self.width - 40, _headImageView.top, 35, 35)];
+    
+    [_moreBtn setFrame:CGRectMake(KScreenWidth - 40, _headImageView.top, 35, 35)];
     [_bottomView setFrame:CGRectMake(0,_contentTextLabel.bottom + 2, KScreenWidth, BottomToolViewHeight)];
 }
 
@@ -84,18 +85,21 @@
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         if(!error)
         {
-            UIImage *tempImage = [[GlobalHelper ShareInstance]ClipCirCleImage:image];
+            UIImage *tempImage = [[GlobalHelper ShareInstance]ClipCirCleImage:image size:CGSizeMake(ceilf(headImageWidth), ceilf(headImageWidth))];
             [weakself->_headImageView setImage:tempImage];
         }
     }];
     
-    _nickNameLabel.text = self.statusObj.user.name==nil?self.statusObj.user.screen_name:self.statusObj.user.name;
-    _contentTextLabel.attributedText = [[NSAttributedString alloc]initWithString:self.statusObj.text];
-    _contentTextLabel.attributedText = [[GlobalHelper ShareInstance]setStr:_contentTextLabel.text WithColor:RGB_COLOR(@"#0099FF") WithFont:14.0f];
+    _nickNameLabel.text = self.statusObj.user.name;
+    _contentTextLabel.attributedText = self.statusObj.contextAtr;
     [_bottomView ConfigBtnData:self.type];
     
     if(cellType == cellTypeOfDetails)
+    {
       [self  setMoreBtnImageWithImage];
+    }
+    
+    [self setSubviewsFrame];
 }
 
 -(CGFloat)cellHeight

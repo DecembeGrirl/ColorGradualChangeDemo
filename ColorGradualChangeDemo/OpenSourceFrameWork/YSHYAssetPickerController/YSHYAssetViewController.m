@@ -49,6 +49,7 @@
     [self CreatCollectionView];
     [self setupButtons];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    NSLog(@"%@",_hasSelectedImages);
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -121,10 +122,12 @@
         [self.assets removeAllObjects];
     
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
-        
-        if (asset)
+        //过滤掉GIF 图片
+        id obj = [asset.defaultRepresentation UTI];
+        NSLog(@"%@",obj);
+        if (asset && (![obj hasSuffix:@"gif"] && ![obj hasSuffix:@"GIF"]))
         {
-            [self.assets addObject:asset];
+           [self.assets addObject:asset];
         }
         else if (self.assets.count > 0)
         {
@@ -209,11 +212,23 @@
         obj.indexPath = indexPath;
         [self.assets replaceObjectAtIndex:indexPath.row withObject:obj];
     }
-    
     YSHYAssetsCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     cell.delegate = self;
     cell.backgroundColor = [UIColor yellowColor];
     [cell ConfigData:_assets[indexPath.row]];
+    AssetObj * assetObj =_assets[indexPath.row];
+
+    for(int i = 0;i < _hasSelectedImages.count ;i++)
+    {
+        ALAsset * asset = _hasSelectedImages[i];
+        if([[asset defaultRepresentation].url isEqual:[assetObj.asset defaultRepresentation].url])
+        {
+            [_indexPathsForSelectedItems addObject:assetObj];
+            assetObj.selectedImageHidden = NO;
+            [cell HandleSelectedImage];
+            [self setTitleWithSelectedIndexPaths:_indexPathsForSelectedItems];
+        }
+    }
     [cell layoutIfNeeded];
     return cell;
 }
@@ -238,7 +253,7 @@
     AssetObj * obj =(AssetObj *)self.assets[indexPath.row];
     if(selected)
     {
-        if(self.hasSelecteNumber >= 10)
+        if(self.hasSelecteNumber >= self.maxSlectedNumber)
         {
             MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
@@ -287,7 +302,9 @@
      UIControlStateNormal];
     self.send.userInteractionEnabled = YES;
     [self.send setTitle:[NSString stringWithFormat:@"确定(%ld)",(long)self.hasSelecteNumber] forState:UIControlStateNormal];
+
 }
+
 
 
 @end

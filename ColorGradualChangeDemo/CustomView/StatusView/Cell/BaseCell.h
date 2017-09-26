@@ -16,6 +16,7 @@
 #import "BottomToolView.h"
 #import "YYText.h"
 #import "RetweetedStatusView.h"
+//#import "Masonry.h"
 //#import "NSString+YYAdd.h"
 
 typedef enum {
@@ -45,6 +46,7 @@ typedef enum {
     BottomToolView *_bottomView;
     
 }
+@property (nonatomic, assign)BOOL canLoad;
 @property (nonatomic, assign)CellType cellType;   
 @property (nonatomic, assign)CommentType type;
 @property (nonatomic, strong)Statuses * statusObj;

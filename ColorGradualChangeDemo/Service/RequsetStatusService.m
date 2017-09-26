@@ -33,11 +33,20 @@ static RequsetStatusService *_instance= nil;
     //    }
     //    else
     //    {
-    //     NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+         NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     //    if(!dataDic[@"error"])
+    if(data)
+    {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.successBlock(data,request);
     });
+    }
+    else
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.fialedBlock(dataDic[@"error"]);
+        });
+    }
     
     //    }
 }
@@ -59,7 +68,7 @@ static RequsetStatusService *_instance= nil;
 -(void)FetchWeiBo:(NSInteger)page
 {
     NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
-    NSDictionary *params = @{Kaccess_token:accessToken,Kpage:[NSString stringWithFormat:@"%ld", (long)page],@"count":@"20"};
+    NSDictionary *params = @{Kaccess_token:accessToken,Kpage:[NSString stringWithFormat:@"%ld", (long)page],@"count":@"30"};
     [RequsetStatusService ConnectNetworkingWithURL:KUserAndeFriendWeiBo params:params connectType:@"GET" tag:KTagGetUserAndFriendWeibo];
 }
 #pragma mark - 根据微博ID 获取微博信息

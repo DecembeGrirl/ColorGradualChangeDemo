@@ -67,8 +67,8 @@
         _searchView.hidden = YES;
         [_searchView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
         [_searchView.searchBar setTextFieldPlacehoder:@""];
-        _searchView.label.text = @"";
-        [_searchView.hotSearchView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+//        _searchView.label.text = @"";
+//        [_searchView.hotSearchView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         __weak typeof(self) weakSelf = self;
         
         _searchView.selectedSearchBarCancelBtnBlock = ^()

@@ -23,9 +23,13 @@
 #import "MJExtension.h"
 #import "ComboBoxView.h"
 #import "FrinedFollowingController.h"
+#import "SKFFPSLabel.h"
 //#define headImageheight  200
 @interface WBViewControll ()<UIGestureRecognizerDelegate,WBHttpRequestDelegate,RetweetedStatusViewDelegate,ShowBigViewDelegate,SearchBarDelegate,userPhotoCollectionViewDelegate,StatusViewForImageCellDelegate,ComboBoxViewdelegate>
 @property (nonatomic, strong)ComboBoxView * comboBoxView;
+@property (nonatomic, strong)SKFFPSLabel *SkfFPSLabel;
+@property (nonatomic, strong)NSMutableArray * needLoadArr;
+@property (nonatomic, strong)UIView * shadeView;
 @end
 
 @implementation WBViewControll
@@ -43,12 +47,46 @@
     }
     [self ConfigNavBar];
     [[RequsetStatusService shareInstance] FetchWeiBo:_page];
+    
+    [self startTheFPSLabel];
 }
+
+#pragma mark  配置SKFFPSLabel的方法
+-(void)configureSKFFPSLabel{
+    _SkfFPSLabel = [[SKFFPSLabel alloc]init];
+    _SkfFPSLabel.frame = CGRectMake(10, 74, 50, 30);
+    //    _SkfFPSLabel setb
+    [self.view addSubview:_SkfFPSLabel];
+    [self.view bringSubviewToFront:_SkfFPSLabel];
+}
+#pragma mark    开启FPS监测的方法
+-(void)startTheFPSLabel{
+    if (_SkfFPSLabel == nil) {
+        [self configureSKFFPSLabel];
+    }
+}
+
+#pragma mark    关闭FPS监测方法
+-(void)closeTheFPSLabel{
+    [_SkfFPSLabel SKFFPSstopDisplayLink];
+    _SkfFPSLabel = nil;    
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
 }
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
+//}
+
+
+
+
 -(void)initViews
 {
     [self.customNav setBackgroundColor:[UIColor whiteColor]];
@@ -76,7 +114,13 @@
     
     self.tableViewDelegate =[[WeiboTableViewDelegate alloc]init];
     _statusArr = [NSMutableArray arrayWithCapacity:5];
+    _statusHeightArr = [NSMutableArray arrayWithCapacity:5];
     _page = 1;
+    
+    _shadeView = [[UIView alloc]initWithFrame:self.view.bounds];
+    [_shadeView setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:_shadeView];
+    _shadeView.hidden = YES;
 }
 -(void)ConfigNavBar
 {
@@ -122,8 +166,10 @@
     __block typeof(self.navigationController) weakselfNavigationController = self.navigationController;
     [self.tableViewDelegate RegistTableView:self.table];
     
-    self.tableViewDelegate.configCellBlock = ^(NSIndexPath * indexPath,id item,BaseCell * cell){
+    self.tableViewDelegate.configCellBlock = ^(NSIndexPath * indexPath,id item,BaseCell * cell,BOOL canLoad){
+        
         [cell ConfigCellWithIndexPath:indexPath Data:item cellType:cellTypeOfNomarl];
+        
         if([cell isKindOfClass:[RetweetedStatusViewCell class]])
         {
             RetweetedStatusViewCell *tempcell = (RetweetedStatusViewCell*)cell;
@@ -145,6 +191,7 @@
             WBDetailsController *VC = [[WBDetailsController alloc]init];
             VC.obj = cell.statusObj;
             VC.type = type;
+             [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
             [weakselfNavigationController pushViewController:VC animated:YES];
         }
         else
@@ -172,12 +219,14 @@
             [weakSelf->_statusArr replaceObjectAtIndex:weakSelf->_selectedIndex withObject:obj];
             weakSelf->_selectedCell.statusObj = obj;
         };
+         [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
         [weakselfNavigationController pushViewController:VC animated:YES];
     };
     self.tableViewDelegate.selectedNameOrHeaderBlock= ^(Statuses * statusObj){
         UserHomeController * VC = [[UserHomeController alloc
                                     ]init];
         VC.userObj = statusObj.user;
+         [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
         [weakselfNavigationController pushViewController:VC animated:YES];
     };
     //    self.tableViewDelegate.downLoadWeibo = ^()
@@ -195,6 +244,7 @@
     {
         WebViewController * VC = [[WebViewController alloc]init];
         VC.urlString = URLStr;
+         [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
         [weakSelf.navigationController pushViewController:VC animated:YES];
     };
     //    self.tableViewDelegate.selectedPhotoBlock = ^(UITableViewCell * cell)
@@ -217,13 +267,21 @@
         [weakself->_hud hide:YES];
         
         if([request.tag isEqualToString:KTagGetUserAndFriendWeibo])
+        {
             [weakself SuccessGetWeiBoInfo:dic];
+        }
         else if ([request.tag isEqualToString:KTagGetUserInfo])
+        {
             [weakself SuccessGetUserInfo:dic];
+        }
         else if ([request.tag isEqual:KTagCreatFavorites])
+        {
             [weakself SuccessCreatFavorites:dic];
+        }
         else if ([request.tag isEqualToString:KtagRemoveFavorites])
+        {
             [weakself SuccessRemoveFavorites:dic];
+        }
         //        else if ([request.tag isEqual:KTagGetSingleWeiboInfoWithID])
         //            [weakself SuccessGetSingleWeiboInfo:dic];
         
@@ -242,23 +300,39 @@
     };
 }
 
-
 //获取微博成功
 -(void)SuccessGetWeiBoInfo:(NSDictionary *)dict
 {
+    NSMutableArray * indexPathArr= [NSMutableArray arrayWithCapacity:5];
     if(_page==1)
+    {
         [_statusArr removeAllObjects];
+        [_statusHeightArr removeAllObjects];
+    }
     if(dict)
     {
         NSArray * statusesArr = dict[Kstatuses];
         for (int i = 0; i < statusesArr.count; i ++) {
             Statuses * statues = [Statuses mj_objectWithKeyValues:statusesArr[i]];
+            [statues setStatusOtherObj];
             [_statusArr addObject:statues];
+            NSIndexPath * indexPath  = [NSIndexPath  indexPathForRow:_statusArr.count - 1 inSection:0];
+            [indexPathArr addObject:indexPath];
         }
     }
     self.tableViewDelegate.dataSource = _statusArr;
-    if(_statusArr.count> 0)
+    self.tableViewDelegate.heightDataArray = _statusHeightArr;
+    if(_statusArr.count<= 30)
+    {
         [self.table reloadData];
+    }
+    else
+    {
+        [self.table beginUpdates];
+        [self.table insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationNone];
+//        [self.table reloadRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationNone];
+        [self.table endUpdates];
+    }
 }
 
 -(void)SuccessGetUserInfo:(NSDictionary *)dic
@@ -303,13 +377,13 @@
 {
     NSLog(@"点击了leftNavBar");
     FrinedFollowingController *VC = [[FrinedFollowingController alloc]init];
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
     [self.navigationController pushViewController:VC animated:YES];
-    
 }
 
 -(void)HandleRightNavBtn:(UIButton *)btn
 {
-//    NSLog(@"点击了rightNavBar");
+    NSLog(@"点击了rightNavBar");
     self.comboBoxView.hidden = !self.comboBoxView.hidden;
    
 }
@@ -317,8 +391,9 @@
 -(void)HandleTapGestureForRetweetedStatusView:(RetweetedStatusView *)retweetedStatusView
 {
     WBDetailsController *VC = [[WBDetailsController alloc]init];
-    VC.obj = retweetedStatusView.obj;
+    VC.obj = retweetedStatusView.obj.retweeted_status;
     VC.type = COMMENTDETAILSTYPE;
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
     [self.navigationController pushViewController:VC animated:YES];
 }
 
@@ -327,6 +402,7 @@
     WBDetailsController *VC = [[WBDetailsController alloc]init];
     VC.obj = statusViewForImageCell.obj;
     VC.type = COMMENTDETAILSTYPE;
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
     [self.navigationController pushViewController:VC animated:YES];
 }
 
@@ -335,6 +411,8 @@
 #pragma mark - userPhotoTableViewCellDelegate
 -(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath currentImage:(UIImage *)image images:(NSArray *)array inView:(UIView *)view
 {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnHidden" object:nil];
+    _shadeView.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
     _imageContentView =(UserPhotoCollectionView *)view;
     UIImageView * imageView = cell.contentView.subviews.lastObject;
@@ -351,9 +429,9 @@
 
 -(void)ShowBigViewDismiss:(UIView *)bigView selectedView:(UIView *)view CurrentIndex:(NSInteger)currentIndex images:(NSArray *)images
 {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
     self.tabBarController.tabBar.hidden = NO;
     NSIndexPath * indexpath = [NSIndexPath indexPathForItem:currentIndex inSection:0];
-    NSLog(@" %@",_imageContentView.subviews);
     UICollectionViewCell *currentView = [_imageContentView collectionView:_imageContentView.myCollectionView cellForItemAtIndexPath:indexpath];
     currentView.hidden = YES;
     __block CGRect toViewframe =[_imageContentView convertRect:currentView.frame toView:self.view];
@@ -366,12 +444,14 @@
     } completion:^(BOOL finished) {
         [tempView removeFromSuperview];
         currentView.hidden = NO;
+        _shadeView.hidden = YES;
     } ];
 }
 
 #pragma mark - SearchBarDelegate
 -(void)TextFiledBegingEdite
 {
+//    [self.view endEditing:YES];
     if(!_searchView)
     {
         _searchView = [[SearchView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -385,6 +465,7 @@
     }
     _searchView.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    
     [_searchView SearchBarBecomeFirstResponder];
 }
 
@@ -419,5 +500,6 @@
     [[SDImageCache sharedImageCache]clearMemory];
     [[SDImageCache sharedImageCache]clearDisk];
 }
+
 
 @end

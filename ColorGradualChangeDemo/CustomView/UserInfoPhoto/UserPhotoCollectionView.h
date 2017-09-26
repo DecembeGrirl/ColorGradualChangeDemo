@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "EqualSpaceFlowLayout.h"
-
+#import "Statuses.h"
 typedef void(^SeleBlankOutOfCellBlock)();
+typedef void(^SaveImageBlock)(UIImage * image ,NSIndexPath *indexPath);
 
 @protocol userPhotoCollectionViewDelegate <NSObject>
 
@@ -22,13 +23,17 @@ typedef void(^SeleBlankOutOfCellBlock)();
 @interface UserPhotoCollectionView : UIView<UICollectionViewDataSource,UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate,UIGestureRecognizerDelegate>
 {
     NSArray * dataArray;
+    Statuses * _statusObj;
 }
+@property (assign, atomic)BOOL canLoad;
 @property (strong, nonatomic)UICollectionView * myCollectionView;
 @property (strong, nonatomic)NSMutableArray * images;
 @property (strong, nonatomic)UIImage * currentImage;
 @property (weak, nonatomic)id<userPhotoCollectionViewDelegate>delegate;
 @property (copy, nonatomic)SeleBlankOutOfCellBlock selectedBlackOutOfcellBlock;
+@property (copy, nonatomic)SaveImageBlock saveImageBlock;
 
--(void)ConfigCellWith:(NSArray *)array;
+-(void)ConfigCellWithObj:(Statuses *)obj;
+-(void)configCellWith:(NSArray *)array;
 -(void)setCollectionViewFrame;
 @end

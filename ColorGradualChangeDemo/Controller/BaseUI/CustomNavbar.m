@@ -30,6 +30,10 @@
     [self setBackBtn];
     
     
+    _buttonlineView = [[UIView alloc]initWithFrame:CGRectMake(0, 63.5, KScreenWidth, 0.5)];
+    _buttonlineView.hidden = YES;
+    [_buttonlineView setBackgroundColor:[UIColor colorWithRed:214.0f/255.0f green:214.0f/255.0f  blue:214.0f/255.0f  alpha:1]];
+    [self addSubview:_buttonlineView];
 }
 
 +(CGSize)BarBtnSize

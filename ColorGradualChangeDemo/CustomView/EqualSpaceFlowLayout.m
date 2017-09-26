@@ -55,7 +55,6 @@
         
         UICollectionViewLayoutAttributes *layoutAttributes =
         [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-        
         layoutAttributes.frame = CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height);
         [_itemAttributes addObject:layoutAttributes];
     }

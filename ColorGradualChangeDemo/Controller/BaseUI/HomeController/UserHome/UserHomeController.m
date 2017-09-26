@@ -17,8 +17,9 @@
 #import "RequsetStatusService.h"
 #import "MJExtension.h"
 #import "PQActionSheet.h"
+#import "SKFFPSLabel.h"
 @interface UserHomeController ()<WBHttpRequestDelegate,RetweetedStatusViewDelegate,ShowBigViewDelegate>
-
+@property (nonatomic, strong)SKFFPSLabel *SkfFPSLabel;
 @end
 
 @implementation UserHomeController
@@ -35,8 +36,31 @@
     [self BottomToolViewBlock];
     [self initPopoverView];
     
-    _hud = [[GlobalHelper ShareInstance]ShowHUD:_hud WithMessage:@"玩命加载中..." afterDelay:0 inView:_tableView];
+    _hud = [[GlobalHelper ShareInstance]ShowHUD:_hud WithMessage:@"玩命加载中..." afterDelay:0 inView:self.view];
     [[RequsetStatusService shareInstance] FetchWeiBo:_page];
+    
+    [self startTheFPSLabel];
+}
+
+#pragma mark  配置SKFFPSLabel的方法
+-(void)configureSKFFPSLabel{
+    _SkfFPSLabel = [[SKFFPSLabel alloc]init];
+    _SkfFPSLabel.frame = CGRectMake(10, 74, 50, 30);
+    //    _SkfFPSLabel setb
+    [self.view addSubview:_SkfFPSLabel];
+    [self.view bringSubviewToFront:_SkfFPSLabel];
+}
+#pragma mark    开启FPS监测的方法
+-(void)startTheFPSLabel{
+    if (_SkfFPSLabel == nil) {
+        [self configureSKFFPSLabel];
+    }
+}
+
+#pragma mark    关闭FPS监测方法
+-(void)closeTheFPSLabel{
+    [_SkfFPSLabel SKFFPSstopDisplayLink];
+    _SkfFPSLabel = nil;
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -72,9 +96,9 @@
     _tableHeaderView.delegate = self;
     // 微博tableView
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - BottomToolViewHeight)style:UITableViewStylePlain];
+    _tableView.hidden = YES;
     [_tableView setBackgroundColor:[UIColor whiteColor]];
     _tableView.contentInset = UIEdgeInsetsMake(_tableHeaderView.bottom, 0, 0, 0);
-    //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     __block typeof(self) weakSelf = self;
     _tableView.mj_footer = [MJRefreshBackNormalFooter
                             footerWithRefreshingBlock:^{
@@ -128,7 +152,7 @@
 -(void)ConfigTable
 {
     __block typeof(self) weakSelf  = self;
-    self.tableViewDelegate.configCellBlock=^(NSIndexPath * indexPath,id item,BaseCell * cell){
+    self.tableViewDelegate.configCellBlock=^(NSIndexPath * indexPath,id item,BaseCell * cell,BOOL canLoad){
         [cell ConfigCellWithIndexPath:indexPath Data:item cellType:cellTypeOfNomarl];
         if([cell isKindOfClass:[RetweetedStatusViewCell class]])
         {
@@ -236,6 +260,7 @@
         else if([request.tag isEqualToString:KTagGetUserPhotoInfo])
         {
             [weakself ConfigPhotoTable:dic];
+            _photoPage ++;
         }
     };
     [RequsetStatusService shareInstance].fialedBlock =^(NSError *error)
@@ -249,9 +274,18 @@
 {
     if(dict)
     {
-        self.dataSource = [Statuses mj_objectArrayWithKeyValuesArray:dict[Kstatuses]];
+        NSArray * statusesArr = dict[Kstatuses];
+        for (int i = 0; i < statusesArr.count; i ++) {
+            Statuses * statues = [Statuses mj_objectWithKeyValues:statusesArr[i]];
+            [statues setStatusOtherObj];
+            [self.dataSource addObject:statues];
+        }
     }
     self.tableViewDelegate.dataSource = self.dataSource;
+    if(_page == 1)
+    {
+        _tableView.hidden = NO;
+    }
     if(self.dataSource.count > 0)
         [_tableView reloadData];
 }
@@ -335,7 +369,7 @@
     NSString * shareText = @"说说分享心得...";
     NSArray  *imageURl =@[self.userObj.profile_image_url];
     
-    NSArray* imageArray = @[[UIImage imageNamed:@"scrollImage3"]];
+//    NSArray* imageArray = @[[UIImage imageNamed:@"scrollImage3"]];
     
     //设置新浪微博分享内容
     [shareParams SSDKSetupSinaWeiboShareParamsByText:shareText title:Nil image:imageURl url:[NSURL URLWithString:@"http://www.baidu.com"] latitude:0 longitude:0 objectID:Nil type:SSDKContentTypeAuto];
@@ -445,7 +479,6 @@
     [self hiddenPopView];
 }
 
-
 #pragma mark ---- UserInfoTableHeaderViewDelegate ---
 #pragma mark - userPhotoTableViewCellDelegate
 -(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath currentImage:(UIImage *)image images:(NSArray *)array inView:(UIView *)view
@@ -462,9 +495,9 @@
     [big ConfigData:array ImageView:imageView atIndex:indexpath.row];
     [big CreatSelectedView:tempView AndFrame:toViewframe currentIamge:image];
 }
+
 //-(void)selectedImageView:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexpath images:(NSArray *)array inView:(UIView *)view
 //{
-
 //    self.tabBarController.tabBar.hidden = YES;
 //    _imageContentView =(UserPhotoCollectionView *)view;
 //    UIImageView * imageView = cell.contentView.subviews.lastObject;
@@ -503,10 +536,27 @@
 
 -(void)ConfigPhotoTable:(NSDictionary *)dic
 {
+    self.tableViewDelegate.dataSource = self.dataSource;
     self.tableViewDelegate.type = TypeOfUserAlssetsTableView;
     _tableView.contentInset = UIEdgeInsetsMake(-_tableView.contentOffset.y-1, 0, 0, 0);
     [_tableView reloadData];
 }
+//
+//-(void)getPhoto
+//{
+//    NSMutableArray * array = [NSMutableArray arrayWithCapacity:10];
+//    
+//    for (int i = 0; i < self.dataSource.count; i++) {
+//        Statuses * statuseObj = self.dataSource[i];
+//        if(statuseObj.retweeted_status)
+//        {
+//            
+//        }
+//        
+//    }
+//
+//
+//}
 
 
 

@@ -12,9 +12,10 @@
 {
     UIImageView  * _imageView;
     
+    
 }
 @property (nonatomic, strong) UILabel * label;
 @property (nonatomic, strong) UILabel * sublabel;
-
+@property (nonatomic, strong) UIView * lineView ;
 -(void)ConfigData:(NSDictionary *)dic;
 @end

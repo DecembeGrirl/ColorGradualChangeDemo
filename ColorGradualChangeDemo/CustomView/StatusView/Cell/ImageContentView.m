@@ -73,13 +73,10 @@
             [dic setObject:imageView forKey:KImageContentView];
             
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIImage *clipImage = image.images?image.images[0]:image;
-                UIImage * tempImage = [weakSelf ClipImage:clipImage withRect:imageView.frame];
-                [imageView setImage: tempImage];
+            UIImage *clipImage = image.images?image.images[0]:image;
+            UIImage * tempImage = [weakSelf ClipImage:clipImage withRect:imageView.frame];
+            [imageView setImage: tempImage];
 //                [obj.imageArray addObject:tempImage];
-            });
-            
             [weakSelf->_imageArray addObject:dic];
             [weakSelf->_imageViewArray addObject:imageView];
         }
@@ -97,7 +94,6 @@
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return viewImage;
-    
 }
 
 -(CGFloat)retrunHight

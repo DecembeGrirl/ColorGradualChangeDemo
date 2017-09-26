@@ -23,7 +23,7 @@ typedef enum {
 }TypeOfUserInfoTableView;
 
 typedef void(^ScrollViewDidScrollBlock)(UIView * view);
-typedef void(^TableViewConfigCellBlock)(NSIndexPath * indexPath,id item,BaseCell * cell);
+typedef void(^TableViewConfigCellBlock)(NSIndexPath * indexPath,id item,BaseCell * cell,BOOL canLoad);
 typedef void (^SelectedImageBlock)(NSInteger indexPath,NSArray * array);  //点击图片
 typedef void (^SelectedCellBlock)(UITableViewCell * cell);
 //typedef void (^ScrollViewWillBeginDecelerating)(UIView * view);

@@ -49,17 +49,19 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * CellID = @"CellID";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
     
     static NSString * BaseCellID = @"BaseCellID";
     static NSString * RetweetedSatusCellID = @"RetweetedSatusCellID";
     static NSString * ImageContentCellID = @"ImageContentCellID";
     static NSString * CommentCellID = @"CommentCellID";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
     BaseCell *baseCell =(BaseCell *) [tableView dequeueReusableCellWithIdentifier:BaseCellID];
     RetweetedStatusViewCell *retweetedStatusViewCell =[tableView dequeueReusableCellWithIdentifier:RetweetedSatusCellID];
     StatusViewForImageCell * statusViewForImageCell =[tableView dequeueReusableCellWithIdentifier:ImageContentCellID];
     CommentsCell *commentCell =[tableView dequeueReusableCellWithIdentifier:CommentCellID];
-    
+    NSArray *visibleCells = tableView.indexPathsForVisibleRows;
+    BOOL canLoad = [visibleCells containsObject:indexPath];
     if(indexPath.section == 0)
     {
         Statuses * obj = self.dataSource[0];
@@ -72,6 +74,7 @@
                 retweetedStatusViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 retweetedStatusViewCell.delegate = self;
             }
+            retweetedStatusViewCell.canLoad = canLoad;
             [retweetedStatusViewCell ConfigCellWithIndexPath:indexPath Data:self.dataSource[0] cellType:cellTypeOfDetails];
             self.configCellBlock(indexPath,nil,retweetedStatusViewCell);
 //            [retweetedStatusViewCell layoutIfNeeded];
@@ -86,7 +89,7 @@
                 statusViewForImageCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 statusViewForImageCell.delegate = self;
             }
-        
+         statusViewForImageCell.canLoad = canLoad;
             [statusViewForImageCell ConfigCellWithIndexPath:indexPath Data:self.dataSource[0] cellType:cellTypeOfDetails];
             self.configCellBlock(indexPath,nil,statusViewForImageCell);
 //            [statusViewForImageCell layoutIfNeeded];
@@ -101,13 +104,14 @@
                 baseCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 baseCell.delegate = self;
             }
+            baseCell.canLoad = canLoad;
             [baseCell ConfigCellWithIndexPath:indexPath Data:self.dataSource[0] cellType:cellTypeOfDetails];
-           
             self.configCellBlock(indexPath,nil,baseCell);
             return baseCell;
         }
     }
-    else if(indexPath.section ==2)
+    else
+        if(indexPath.section ==2)
     {
         if(!commentCell)
         {
@@ -129,7 +133,7 @@
     if(indexPath.section == 0)
     {
         Statuses * obj = _dataSource[indexPath.row];
-        CGFloat height =  obj.retweeted_status?[obj getStatusesHight]- 40 + 27:[obj getStatusesHight] - 40 ;
+        CGFloat height =  obj.retweeted_status?obj.height- 40 + 25:obj.height - 40 ;
         return height;
     }
     else if(indexPath.section == 1)

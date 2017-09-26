@@ -24,15 +24,12 @@
 @interface StatusViewForImageCell : BaseCell<EqualSpaceFlowLayoutDelegate>
 {
     NSArray * dataArray;
-    
 }
 
-//@property (nonatomic, strong)UICollectionView * imageContenCollectionView;
 @property (nonatomic, strong)UserPhotoCollectionView *imageContentView;
 
 @property (nonatomic, strong)Statuses * obj;
 @property (nonatomic, strong)id<StatusViewForImageCellDelegate>myDelegate;
-//-(void)ConfigCellWithIndexPath:(NSIndexPath *)indexPath Data:(id)data;
 -(CGFloat)cellHeight;
 
 @end

@@ -32,6 +32,7 @@
     [self CreatUI];
     [self ConfigTable];
     [self conntectNetworkingResult];
+    [self.obj setStatusOtherObj];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -42,7 +43,7 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidDisappear:animated];
     //    self.backBlock(self.obj);
 }
 
@@ -205,7 +206,7 @@
 -(void)HandleTapGestureForRetweetedStatusView:(RetweetedStatusView *)retweetedStatusView
 {
     WBDetailsController *VC = [[WBDetailsController alloc]init];
-    VC.obj = retweetedStatusView.obj;
+    VC.obj = retweetedStatusView.obj.retweeted_status;
     VC.type = COMMENTDETAILSTYPE;
     [self.navigationController pushViewController:VC animated:YES];
 }

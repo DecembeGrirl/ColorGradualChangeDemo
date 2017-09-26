@@ -31,6 +31,11 @@
                 [weakSelf.myDelegate HandleTapGestureForStatusViewForImageCell:weakSelf];
             }
         };
+        self.imageContentView.saveImageBlock=^(UIImage *image,NSIndexPath *indexPath)
+        {
+            NSLog(@"---- 保存图片喽");
+            [weakSelf.obj.cacheImageArr replaceObjectAtIndex:indexPath.row withObject:image];
+        };
     }
     return self;
 }
@@ -38,7 +43,7 @@
 -(void)setSubviewsFrame
 {
     [super setSubviewsFrame];
-    [self.imageContentView setFrame:CGRectMake(5, _contentTextLabel.bottom, self.width ,self.obj.getImageHight)];
+    [self.imageContentView setFrame:CGRectMake(5, _contentTextLabel.bottom, KScreenWidth - 10 ,self.obj.getImageHight)];
     [self.imageContentView setCollectionViewFrame];
     
     CGFloat bottomViewTop =self.imageContentView.bottom?self.imageContentView.bottom:_contentTextLabel.bottom;
@@ -49,15 +54,10 @@
 {
     [super ConfigCellWithIndexPath:indexPath Data:data cellType:cellType];
     [self.imageViewArray removeAllObjects];
-    
     self.obj = (Statuses *)data;
-    //    [self.imageContentView configImageContentViewWith:self.obj];
-    NSMutableArray* array = [[NSMutableArray alloc]init];
-    for (NSDictionary * dic in self.obj.pic_urls) {
-        NSString *str = [dic[@"thumbnail_pic"] stringByReplacingOccurrencesOfString:Kthumbnail withString:Kbmiddle];
-        [array addObject:str];
-    }
-    [self.imageContentView ConfigCellWith:array];
+    self.imageContentView.canLoad = self.canLoad;
+    [self.imageContentView ConfigCellWithObj:self.obj];
+    [self setSubviewsFrame];
 }
 -(CGFloat)cellHeight
 {
