@@ -16,6 +16,12 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
+        [self setupViews];
+        [self setupButtons];
+        [self localize];
+        [self setupGroup];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+        
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
         self.preferredContentSize=kPopoverContentSize;
 #else
@@ -30,11 +36,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupViews];
-    [self setupButtons];
-    [self localize];
-    [self setupGroup];
-//    
+//    [self setupViews];
+//    [self setupButtons];
+//    [self localize];
+//    [self setupGroup];
+//
     self.isFirstAppear = 0;
 }
 
@@ -276,6 +282,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YSHYAssetViewController *vc = [[YSHYAssetViewController alloc] init];
+    vc.hasSelectedImages = _hasSelectedImages;
+    vc.maxSlectedNumber = _maxSelectedNumber;
     vc.assetsGroup = [self.groups objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -285,10 +293,8 @@
 - (void)dismiss:(id)sender
 {
     YSHYAssetPickerController *picker = (YSHYAssetPickerController *)self.navigationController;
-    
     if ([picker.pickerDelegate respondsToSelector:@selector(assetPickerControllerDidCancel:)])
         [picker.pickerDelegate assetPickerControllerDidCancel:picker];
-    
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

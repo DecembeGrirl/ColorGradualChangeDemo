@@ -11,6 +11,7 @@
 #import "Config.h"
 #import "NSAttributedString+YYText.h"
 #import "YYLabel.h"
+#import "BaseCell.h"
 
 static GlobalHelper * instance = nil;
 @implementation GlobalHelper
@@ -124,9 +125,10 @@ static GlobalHelper * instance = nil;
                             color:[UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000]
                   backgroundColor:[UIColor redColor]
                         tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-                            NSLog(@"%@",containerView);
-                            NSLog(@"---- %@",text);
-//                            [weakSelf ShareInstance].selectedYYLabelRangeTextBlock(containerView,text,range,rect);
+                        //                            [weakSelf ShareInstance].selectedYYLabelRangeTextBlock(containerView,text,range,rect);
+                            NSLog(@"++++ %@  \n---- %@",[containerView superview],[[containerView superview]superview]);
+//                            UIView* view =
+//                            [[containerView superview] isKindOfClass:[RetweetedStatusView class]]?containerView:[[[containerView superview]superview]superview];
                             weakSelf.selectedYYLabelRangeTextBlock(containerView,text,range,rect);
                         }];
     
@@ -193,7 +195,7 @@ static GlobalHelper * instance = nil;
     return layout.textBoundingSize;
 }
 
--(UIImage *)ClipCirCleImage:(UIImage *)image
+-(UIImage *)ClipCirCleImage:(UIImage *)image size:(CGSize)size
 {
     CGFloat arcCenterX = image.size.width/ 2;
     CGFloat arcCenterY = image.size.height / 2;
@@ -201,7 +203,7 @@ static GlobalHelper * instance = nil;
     UIGraphicsBeginImageContext(image.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextBeginPath(context);
-    CGContextAddArc(context, arcCenterX , arcCenterY, image.size.width/ 2 , 0.0, 2*M_PI, NO);
+    CGContextAddArc(context, arcCenterX , arcCenterY,image.size.width/ 2 , 0.0, 2*M_PI, NO);
     CGContextClip(context);
     CGRect myRect = CGRectMake(0 , 0, image.size.width, image.size.height);
     [image drawInRect:myRect];

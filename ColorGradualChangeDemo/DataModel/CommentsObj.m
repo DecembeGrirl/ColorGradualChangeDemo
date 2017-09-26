@@ -22,7 +22,6 @@
     CGSize size =  [GlobalHelper CalculateYYlabelHeightAttributedString:att Size:CGSizeMake(KScreenWidth-45, MAXFLOAT)];
     
     CGFloat height = 16+ceil(nameSize.height)+ceil(timeSize.height)+ceil(size.height);
-    
     return  height;
 }
 

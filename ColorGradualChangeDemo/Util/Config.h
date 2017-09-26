@@ -9,8 +9,11 @@
 #ifndef Config_h
 #define Config_h
 
-#define RGB_COLOR(_STR_) ([UIColor colorWithRed:[[NSString stringWithFormat:@"%lu", strtoul([[_STR_ substringWithRange:NSMakeRange(1, 2)] UTF8String], 0, 16)] intValue] / 255.0 green:[[NSString stringWithFormat:@"%lu", strtoul([[_STR_ substringWithRange:NSMakeRange(3, 2)] UTF8String], 0, 16)] intValue] / 255.0 blue:[[NSString stringWithFormat:@"%lu", strtoul([[_STR_ substringWithRange:NSMakeRange(5, 2)] UTF8String], 0, 16)] intValue] / 255.0 alpha:1.0])
 
+
+#define RGB_COLOR(_STR_) ([UIColor colorWithRed:[[NSString stringWithFormat:@"%lu", strtoul([[_STR_ substringWithRange:NSMakeRange(1, 2)] UTF8String], 0, 16)] intValue] / 255.0 green:[[NSString stringWithFormat:@"%lu", strtoul([[_STR_ substringWithRange:NSMakeRange(3, 2)] UTF8String], 0, 16)] intValue] / 255.0 blue:[[NSString stringWithFormat:@"%lu", strtoul([[_STR_ substringWithRange:NSMakeRange(5, 2)] UTF8String], 0, 16)] intValue] / 255.0 alpha:1.0])
+#define YSHY_COLOR_normal(_R,_G,_B) [UIColor colorWithRed:_R / 255.0f green:_G / 255.0f blue:_B / 255.0f alpha:1]
+#define YSHY_COLOR_alpha(_R,_G,_B,_A) [UIColor colorWithRed:_R / 255.0f green:_G / 255.0f blue:_B / 255.0f alpha:_A]
 
 #define  KAppKey @"2851962511"
 //#define  KloginURL @"https://open.weibo.cn/oauth2/authorize?"  //授权登录
@@ -24,8 +27,12 @@
 #define KURLCreatFavorites @"https://api.weibo.com/2/favorites/create.json" // 添加收藏
 #define  KURLRemoveFavorites @"https://api.weibo.com/2/favorites/destroy.json"  //移除收藏
 #define KURLGetUserPhoto   @"https://api.weibo.com/2/place/users/photos.json"  // 获取用户相册
+#define KURLShort_urlToLong_url  @"https://api.weibo.com/2/short_url/expand.json"
 
+#define KURLGetTrends_hourly @"https://api.weibo.com/2/trends/hourly.json" // 返回最近一小时内的热门话题
 
+// 附近位置
+#define LURLGetNearByLocation @"https://api.weibo.com/2/place/nearby/pois.json"
 
 
 
@@ -80,6 +87,7 @@
 #define Kstatuses @"statuses"
 #define Kstatus @"status"
 #define KstatusComments @"statutsComments"
+#define KShort_URL  @"url_short"
 
 
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
@@ -95,7 +103,9 @@
 #define KtagRemoveFavorites  @"RemoveFavorites"
 #define KTagGetSingleWeiboInfoWithID @"GetSingleWeiboInfoWithID"
 #define KTagGetUserPhotoInfo     @"GetUserPhotoInfo"
-
+#define KTagShortURLToLongURL    @"ShortURLToLongURL"
+#define KTagTrends_hourly        @"Trends_hourly"
+#define KTagNearbyLocation       @"NearbyLocation"
 
 
 #define KComments @"comments"

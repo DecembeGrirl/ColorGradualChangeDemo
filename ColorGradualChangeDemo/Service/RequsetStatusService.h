@@ -34,4 +34,10 @@ typedef void(^FialedConnectNetworkingBlock)(NSError *error);
 -(void)RemoveFavoritesOfStauts:(Statuses *)obj;
 
 -(void)GetUserPhotoInfo:(User *)user page:(NSInteger)page;
+
+-(void)ShortURLToLongURL:(NSString * )shortURL;
+
+-(void)getTrendHourly;
+
+-(void)getNearbyLocation:(NSDictionary *)dic;
 @end

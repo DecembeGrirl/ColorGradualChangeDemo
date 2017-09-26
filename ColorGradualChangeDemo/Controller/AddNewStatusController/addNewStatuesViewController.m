@@ -12,6 +12,7 @@
 @implementation addNewStatuesViewController
 {
     UIImageView * backView;
+    BlurEffectMenu *menu;
 }
 
 -(void)viewDidLoad
@@ -29,6 +30,7 @@
     [super viewWillAppear:animated];
     [backView setImage:self.backGroundImage];
     [self CreatUI];
+     [self presentViewController:menu animated:YES completion:nil];
 }
 
 -(void)CreatUI
@@ -58,12 +60,10 @@
     [moreItem setIcon:[UIImage imageNamed:@"tabbar_compose_more"]];
 
     
-    BlurEffectMenu *menu=[[BlurEffectMenu alloc]initWithMenus:@[statusItem,pictureItem,topArticleItem,signItem,liveItem,moreItem]];
+    menu=[[BlurEffectMenu alloc]initWithMenus:@[statusItem,pictureItem,topArticleItem,signItem,liveItem,moreItem]];
     menu.delegate = self;
     menu.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [menu setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [self presentViewController:menu animated:YES completion:nil];
-
 }
 
 #pragma mark - BlurEffectMenu Delegate
@@ -77,10 +77,12 @@
 
 - (void)blurEffectMenu:(BlurEffectMenu *)menu didTapOnItem:(BlurEffectMenuItem *)item{
     MainTabBarController *maintabBarVC =(MainTabBarController*) self.tabBarController;
+    
     maintabBarVC.selectedViewController =maintabBarVC.childViewControllers[self.index];
     [self dismissViewControllerAnimated:NO completion:^{
-        [self goToNextController:item];
+        
     }];
+    [self goToNextController:item];
 }
 
 -(void)goToNextController:(BlurEffectMenuItem *)item

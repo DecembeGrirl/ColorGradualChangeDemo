@@ -27,13 +27,13 @@
     UIView * view= [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, 30)];
     [view setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:view];
-    UIButton *meanWhileCommentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [meanWhileCommentBtn setFrame:CGRectMake(5, 0, 100, 25)];
-    [meanWhileCommentBtn setTitle:@"同时评论" forState:UIControlStateNormal];
-    [meanWhileCommentBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [meanWhileCommentBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
-    [meanWhileCommentBtn addTarget:self action:@selector(HandleMeanWhileBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:meanWhileCommentBtn];
+    _meanWhileCommentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_meanWhileCommentBtn setFrame:CGRectMake(5, 0, 100, 25)];
+    [_meanWhileCommentBtn setTitle:@"同时评论" forState:UIControlStateNormal];
+    [_meanWhileCommentBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_meanWhileCommentBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
+    [_meanWhileCommentBtn addTarget:self action:@selector(HandleMeanWhileBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:_meanWhileCommentBtn];
     
     UIButton *shareRangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [shareRangeBtn setFrame:CGRectMake(self.width - 105, 0, 100, 25)];
@@ -104,7 +104,7 @@
 
 -(void)HandleMeanWhileBtn:(UIButton *)btn
 {
-
+    self.selectedMeanWhileCommentBtnBlock(self,btn);
 }
 
 
@@ -139,8 +139,4 @@
 {
     self.selectedPlusBtnBlock(self,btn);
 }
-
-
-
-
 @end

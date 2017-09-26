@@ -19,7 +19,8 @@
 
 @property (nonatomic, strong)UserPhotoCollectionView * photoCollectionView;
 
--(void)ConfigCellWith:(NSArray *)array;
+//-(void)ConfigCellWith:(NSArray *)array;
+-(void)ConfigCellWith:(Statuses *)obj;
 
 -(void)setCollectionViewFrame;
 @end

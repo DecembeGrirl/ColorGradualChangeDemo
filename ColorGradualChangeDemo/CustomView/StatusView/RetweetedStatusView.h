@@ -21,6 +21,7 @@
     NSMutableArray * _imageViewArray;
     //    ImageContentView * _imageContenView;
 }
+@property (nonatomic, assign)BOOL canLoad;
 @property (nonatomic, strong)Statuses * obj;
 //@property (nonatomic, strong)ImageContentView *imageContentView;
 @property (nonatomic, strong)UserPhotoCollectionView *imageContentView;

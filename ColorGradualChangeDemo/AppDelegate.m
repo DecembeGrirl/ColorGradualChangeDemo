@@ -148,7 +148,6 @@
 //    [JPUSHService setupWithOption:launchOptions appKey:appKey
 //                          channel:channel apsForProduction:isProduction];
     
-    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -195,6 +194,11 @@
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
       NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+}
+// iOS10 以后需要在 openURL 中进行回调配置
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    return  [WeiboSDK handleOpenURL:url delegate:self];
 }
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url

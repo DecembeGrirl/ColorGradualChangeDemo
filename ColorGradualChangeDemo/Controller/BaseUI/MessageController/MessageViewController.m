@@ -25,6 +25,7 @@
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.customNav.bottom -38, KScreenWidth, KScreenHeight-35) style:UITableViewStylePlain];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 45, 0, 0);
     [_tableView setBackgroundColor:[UIColor clearColor]];
     [self.view insertSubview:_tableView belowSubview:self.customNav];
@@ -43,10 +44,10 @@
                                 [weakSelf->_tableView.mj_header endRefreshing];
                             }];
     
-    _searchBar = [[SearchBar alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 35)];
-    _searchBar.type = CanNotEditType;
-    _searchBar.delegate= self;
-    _tableView.tableHeaderView =_searchBar;
+//    _searchBar = [[SearchBar alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 35)];
+//    _searchBar.type = CanNotEditType;
+//    _searchBar.delegate= self;
+//    _tableView.tableHeaderView =_searchBar;
     
     self.tableViewDelegate =[[MessageTableViewDelegate alloc]init];
     [self.tableViewDelegate registTableView:_tableView Data:nil];
@@ -65,7 +66,6 @@
     [leftBtn setTitle:@"发现群" forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [self.customNav setLeftNavButton:leftBtn];
-    
     [self.customNav setRightNavButton:[[self.customNav class]createNavButtonByImageNormal:@"navigationbar_icon_radar" imageSelected:@"navigationbar_icon_radar_highlighted" target:self action:@selector(HandleRightNavBtn:)]];
 }
 
@@ -103,6 +103,13 @@
     [_searchView SearchBarBecomeFirstResponder];
 }
 
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
+}
 
 
 @end

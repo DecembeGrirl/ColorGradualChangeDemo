@@ -12,8 +12,11 @@
 #import "CycleScrollCell.h"
 #import "TopicCell.h"
 #import "NormalSearchCell.h"
+#import "RequsetStatusService.h"
 @interface FindViewController ()<SearchBarDelegate>
-
+{
+    NSArray * trendsArray;
+}
 @end
 
 @implementation FindViewController
@@ -22,22 +25,29 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.customNav.hidden = YES;
-    _dataArray = [[NSMutableArray alloc]init];
     
+    _dataArray = [[NSMutableArray alloc]init];
+    trendsArray = [[NSMutableArray alloc]init];
     [self CreatSearchBar];
     [self CreatSomeData];
     [self ConfigTableView];
+//    [self getTrendHourly];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //    _centeBtn.hidden = NO;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
 }
+
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [_searchBar.textField resignFirstResponder];
+    [_dataArray removeAllObjects];
 }
 
 -(void)CreatSearchBar
@@ -63,8 +73,9 @@
 
 -(void)ConfigTableView
 {
-    [self.findeTableViewDelegate RegistTableView:_tableView];
     self.findeTableViewDelegate.dataSource = _dataArray;
+    [self.findeTableViewDelegate RegistTableView:_tableView];
+     [_tableView reloadData];
     __weak typeof(self)weakSelf = self;
     self.findeTableViewDelegate.configCellBlock=^(NSIndexPath * indexPath,id item,UITableViewCell * cell)
     {
@@ -78,7 +89,7 @@
         else if ([cell isKindOfClass:[TopicCell class]])
         {
             TopicCell * topicCell = (TopicCell *)cell;
-            [topicCell ConfigData:nil];
+            [topicCell ConfigData:strongSelf->_dataArray.lastObject];
         }
         else if([cell isKindOfClass:[NormalSearchCell class]])
         {
@@ -90,10 +101,31 @@
 
 -(void)TextFiledBegingEdite
 {
+    [self.view endEditing:YES];
     _searchView.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+//    [_searchBar.textField resignFirstResponder];
+//    [_searchBar endEditing:YES];
+//    [_searchView.searchBar.textField becomeFirstResponder];
     [_searchView SearchBarBecomeFirstResponder];
 }
+
+-(void)getTrendHourly
+{
+    __weak typeof(self) weakSelf = self;
+    [[RequsetStatusService shareInstance] getTrendHourly];
+    [RequsetStatusService shareInstance].successBlock = ^(NSData *data , WBHttpRequest *request)
+    {
+        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * trendsDic = dic[@"trends"];
+        if(trendsDic){
+        trendsArray  = [trendsDic objectForKey:[trendsDic allKeys][0]];
+        [_dataArray  addObject:trendsArray];
+        [weakSelf ConfigTableView];
+        }
+    };
+}
+
 -(void)CreatSomeData
 {
     NSMutableArray * array1 = [[NSMutableArray alloc]init];
@@ -114,7 +146,6 @@
     [array3 addObject:@{@"image":@"tabbar_compose_wbcamera@2x",@"title":@"鲜城-北京",@"description":@"本地最有特色的美食福利推荐"}];
     [array3 addObject:@{@"image":@"tabbar_compose_more",@"title":@"更多",@"description":@""}];
     [_dataArray addObject:array3];
-    
 }
 
 @end

@@ -21,7 +21,7 @@ typedef enum {
 -(void)TextFiledBegingEdite;
 -(void)selectedCancelBtn:(UIButton *)sendder;
 @end
-@interface SearchBar : UIView<UITextFieldDelegate>
+@interface SearchBar : UIView<UITextFieldDelegate,UIGestureRecognizerDelegate>
 {
     UIButton * _imageBtn;
     UIButton * _cancelBtn;

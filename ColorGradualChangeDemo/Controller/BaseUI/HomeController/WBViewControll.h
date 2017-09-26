@@ -24,6 +24,7 @@
 @interface WBViewControll : BaseController
 {
     NSMutableArray * _statusArr;
+    NSMutableArray * _statusHeightArr;
     MBProgressHUD * _hud;
     int _page;
     SearchView * _searchView;

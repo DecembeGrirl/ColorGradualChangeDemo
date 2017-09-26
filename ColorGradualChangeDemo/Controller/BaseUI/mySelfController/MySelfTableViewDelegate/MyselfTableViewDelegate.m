@@ -104,9 +104,11 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0,0, tableView.width, 10)];
-    [view setBackgroundColor:RGB_COLOR(@"#E4E4E4")];
-    view.alpha = 0.2;
+    UIView * view=[[UIView alloc]init];
+    [view setBackgroundColor:[UIColor colorWithRed:248.0f/255.0f green:248.0f/255.0f blue:248.0f/255.0f alpha:1]];
+    UIView  * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 7.5, KScreenWidth, 0.5)];
+    [lineView setBackgroundColor:[UIColor colorWithRed:215.0f/255.0f green:215.0f/255.0f blue:215.0f/255.0f alpha:1]];
+    [view addSubview:lineView];
     return view;
 }
 

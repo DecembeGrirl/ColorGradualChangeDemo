@@ -20,7 +20,6 @@
     }
     return self;
 }
-
 -(void)CreatUI
 {
     _followBtn =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -69,7 +68,6 @@
     [_chatBtn setTitle:@"聊天" forState:UIControlStateNormal];
     [_hotBtn setTitle:@"他的热门" forState:UIControlStateNormal];
 }
-
 -(void)HandleFollowBtn:(UIButton *)btn
 {
 //    NSString * str = [[text string] substringWithRange:range];
@@ -77,7 +75,6 @@
 //    [alertView show];
     self.followBtnBlock(btn);
 }
-
 -(void)HandleChatBtn:(UIButton *)btn
 {
     self.chatBtnBlock();

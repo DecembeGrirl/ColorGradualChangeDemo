@@ -16,6 +16,7 @@
 #import "BottomToolView.h"
 #import "YYText.h"
 #import "RetweetedStatusView.h"
+//#import "Masonry.h"
 //#import "NSString+YYAdd.h"
 
 typedef enum {
@@ -27,8 +28,12 @@ typedef enum {
 @protocol BaseCellDelegate <NSObject>
 
 -(void)SelectedCellBtn:(BaseCell *)cell btnType:(CommentType)type;
--(void)SelectedNameOrHeader:(BaseCell *)cell;
+-(void)SelectedNameOrHeader:(Statuses *)statusesObj;
 -(void)SelectedMoreBtn:(BaseCell *)cell;
+
+-(void)SelectedUserName:(Statuses *)statusesObj;
+-(void)SelectedURL:(NSString *)url;
+
 @end
 
 @interface BaseCell : UITableViewCell<BottomToolViewBtnDelegate>
@@ -41,6 +46,7 @@ typedef enum {
     BottomToolView *_bottomView;
     
 }
+@property (nonatomic, assign)BOOL canLoad;
 @property (nonatomic, assign)CellType cellType;   
 @property (nonatomic, assign)CommentType type;
 @property (nonatomic, strong)Statuses * statusObj;
@@ -49,9 +55,9 @@ typedef enum {
 -(void)ConfigCellWithIndexPath:(NSIndexPath *)indexPath Data:(id)data cellType:(CellType)cellType;
 -(CGFloat)cellHeight;
 -(void)setSubviewsFrame;
--(void)selectedYYLable;
+//-(void)selectedYYLable;
 -(void)setHeadImageUserInterActionEnable:(BOOL)userInaterActionEnable;
-
+-(void)SelectLink;
 -(void)setMoreBtnImageWithImage;
 
 //-(void)setSubviewsFrame;

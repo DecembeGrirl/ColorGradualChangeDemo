@@ -11,8 +11,13 @@
 #import "YSHYAssetPickerController.h"
 #import "FaceView.h"
 #import "GlobalHelper.h"
-@interface TransmitViewController ()<UITextViewDelegate,YSHYAssetPickerControllerDelegate,UINavigationControllerDelegate>
-
+#import "AddImageView.h"
+#import "MyLocationViewController.h"
+@interface TransmitViewController ()<UITextViewDelegate,YSHYAssetPickerControllerDelegate,UINavigationControllerDelegate,AddImageViewDelegate,YSHYAssetPickerControllerDelegate>
+{
+    AddImageView * addImagesView;
+}
+@property (nonatomic, strong)NSMutableArray * imagesArray;
 @end
 
 @implementation TransmitViewController
@@ -30,11 +35,20 @@
     if(self.type == REPORTTYPE)
     {
         [_reportsStatusView ConfigDataWith:self.obj];
-    }else
+    }else if(self.type == DEFULTTYPE)
+    {
+        _placehodlerLabel.text = @"分享新鲜事...";
+        [self.customNav.titleLabel setText:@"发微博"];
+        _reportsStatusView.hidden = YES;
+        [_bottomToolView.meanWhileCommentBtn setTitle:@"你在哪儿?" forState:UIControlStateNormal];
+        
+    }
+    else
     {
         _placehodlerLabel.text = @"写评论...";
         [self.customNav.titleLabel setText:@"发评论"];
         _reportsStatusView.hidden = YES;
+         [_bottomToolView.meanWhileCommentBtn setTitle:@"同时评论?" forState:UIControlStateNormal];
     }
     [_textView becomeFirstResponder];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -72,7 +86,17 @@
     [_placehodlerLabel setTextColor:[UIColor grayColor]];
     [_placehodlerLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
     [_textView addSubview:_placehodlerLabel];
-    
+
+    addImagesView = [[AddImageView alloc]initWithImags:self.imagesArray showAddBtn:NO];
+    [addImagesView setFrame:CGRectMake(0, _textView.bottom , KScreenWidth, 85)];
+    [self.view addSubview:addImagesView];
+    addImagesView.delegate = self;
+    __weak typeof(self) weakself = self;
+    addImagesView.addImagesBlock = ^(NSArray * images)
+    {
+        weakself.imagesArray = [NSMutableArray arrayWithArray:images];
+    };
+
     _reportsStatusView = [[ReportsStatusView alloc]initWithFrame:CGRectMake( 5, _textView.bottom + 50, self.view.width - 10, 60)];
     [self.view addSubview: _reportsStatusView];
     
@@ -120,16 +144,26 @@
         [weakSelf textViewDidChange:weakSelf->_textView];
         weakSelf->_textView.selectedRange = NSMakeRange(location-1,0);
     };
-
 }
 
 -(void)ConfigBottomToolView
 {
     __block typeof(self)weakSelf = self;
+    _bottomToolView.selectedMeanWhileCommentBtnBlock =^(ChatToolView * toolView,UIButton * btn)
+    {
+        if([btn.titleLabel.text isEqualToString:@"你在哪儿?"])
+        {
+            [weakSelf presentViewController:[[MyLocationViewController alloc]init] animated:YES completion:nil];
+        }
+        else
+        {
+        
+        }
+    };
+    
     _bottomToolView.selectedImageBtnBlock=^(ChatToolView * toolView,UIButton * btn)
     {
-        YSHYAssetPickerController *picker = [[YSHYAssetPickerController alloc]init];
-        picker.maximumNumberOfSelection = 10;
+        YSHYAssetPickerController *picker = [[YSHYAssetPickerController alloc]initWithNumber:5 andHasSelectedImags:weakSelf.imagesArray];//最多只能选5张
         picker.assetsFilter = [ALAssetsFilter allPhotos];
         picker.showEmptyGroups = NO;
         picker.pickerDelegate = weakSelf;
@@ -142,8 +176,11 @@
             }
         }];
         [weakSelf presentViewController:picker animated:YES completion:^{
-            [weakSelf.view endEditing:YES];
+             [weakSelf.view endEditing:YES];
+//            picker.navigationController pushViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#>
         }];
+
+
     };
     _bottomToolView.selectedAtBtnBlock=^(ChatToolView * toolView,UIButton * btn)
     {
@@ -173,11 +210,23 @@
     {
         NSLog(@"点击了 + 按钮");
     };
-
 }
+
+#pragma mark - AddImageViewDelegate-----
+-(void)addImage:(NSMutableArray *)images
+{
+    self.imagesArray = images;
+}
+-(void)deletImage:(NSMutableArray *)images
+{
+    self.imagesArray = images;
+}
+
 #pragma mark - ZYQAssetPickerControllerDelegate
 -(void)assetPickerController:(YSHYAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
+    self.imagesArray = [assets mutableCopy];
+    [addImagesView configImages:self.imagesArray];
     NSLog(@"finishPicking");
 }
 

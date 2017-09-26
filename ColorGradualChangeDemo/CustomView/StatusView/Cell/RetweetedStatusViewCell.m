@@ -15,30 +15,24 @@
     {
         self.retweetedStatusView = [[RetweetedStatusView alloc]init];
         [self.contentView addSubview:self.retweetedStatusView];
-//        [GlobalHelper ShareInstance].selectedYYLabelRangeTextBlock=^(UIView * containerView, NSAttributedString * text, NSRange range, CGRect rect)
-//        {
-//            NSString * str = [[text string] substringWithRange:range];
-//            UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
-//            [alertView show];
-//        };
-
     }
     return  self;
 }
 
 
--(void)ConfigCellWithIndexPath:(NSIndexPath *)indexPath Data:(id)data cellType:(CellType)cellType
+-(void)ConfigCellWithIndexPath:(NSIndexPath *)indexPath Data:(id)data cellType:(CellType)cellType 
 {
-    [super ConfigCellWithIndexPath:indexPath Data:data cellType:cellType];
+    [super ConfigCellWithIndexPath:indexPath Data:data cellType:cellType ];
     Statuses * obj = (Statuses *)data;
-    [self.retweetedStatusView ConfigUIWithData:obj.retweeted_status];
-//    [self setSubviewsFrame];
+    self.retweetedStatusView.canLoad = self.canLoad;
+    [self.retweetedStatusView ConfigUIWithData:obj ];
+    [self setSubviewsFrame];
 }
 
 -(void)setSubviewsFrame
 {
     [super setSubviewsFrame];
-    [self.retweetedStatusView setFrame:CGRectMake(0, _contentTextLabel.bottom, self.width, self.retweetedStatusView.height)];
+    [self.retweetedStatusView setFrame:CGRectMake(0, _contentTextLabel.bottom, KScreenWidth, self.statusObj.retweetedContextHeight)];
     [self.retweetedStatusView setSubviewsFrame];
     [_bottomView setFrame:CGRectMake(0, self.retweetedStatusView.bottom, KScreenWidth, BottomToolViewHeight)];
     if(self.type == COMMENTDETAILSTYPE)
@@ -61,7 +55,6 @@
     CGFloat width = self.width/6;
     for (UIView * view in array) {
         if([view isKindOfClass:[UIButton class]]){
-            
             [view setFrame:CGRectMake(self.width / 2+width * temp ,0 , width, _bottomView.height)];
             temp ++;
         }
@@ -71,9 +64,4 @@
         }
     }
 }
-//-(void)registCelldelegate:(id)delegate
-//{
-//    self.retweetedStatusView.imageContentView.delegate = delegate;
-//}
-
 @end

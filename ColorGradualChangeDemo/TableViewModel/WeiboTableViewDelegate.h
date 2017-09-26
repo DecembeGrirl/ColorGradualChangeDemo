@@ -11,12 +11,12 @@
 #import "BaseCell.h"
 #import "ImageContentView.h"
 #import "TransmitViewController.h"
-typedef void(^TableViewConfigCellBlock)(NSIndexPath * indexPath,id item,BaseCell * cell);
+typedef void(^TableViewConfigCellBlock)(NSIndexPath * indexPath,id item,BaseCell * cell ,BOOL canLoad);
 
 typedef CGFloat(^TableViewHeaderViewHeightBlock)(UITableView * tableView);
 typedef void (^SelectedImageBlock)(NSInteger indexPath,NSArray * array);  //点击图片
 typedef void (^SelectedCellBtnBlock)(BaseCell * cell,CommentType type);  //点击bottomViewbtn
-typedef void (^SelectedCellNameOrHeader)(BaseCell *cell);//点击头像或者昵称
+typedef void (^SelectedCellNameOrHeader)(Statuses * statusObj);//点击头像或者昵称
 
 typedef void (^SelectedCellBlock)(UITableViewCell * cell);
 typedef void (^SelectedCellBtnBlock)(BaseCell * cell,CommentType type);  //点击bottomViewbtn
@@ -27,9 +27,13 @@ typedef void (^SelectedURL)(NSString * str);
 typedef void (^DownLoadWeiboBlock)();
 
 typedef void (^SelectedUserPhoto)(UITableViewCell * cell);
-@interface WeiboTableViewDelegate : NSObject<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate>
+@interface WeiboTableViewDelegate : NSObject<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong)NSArray * dataSource;
+@property (nonatomic, strong)NSArray * heightDataArray;
+@property (nonatomic, strong)UITableView * tableView;
+@property (nonatomic, strong)NSMutableArray * needLoadArray;
+@property (nonatomic, assign)BOOL canLoad;
 
 @property(nonatomic, copy)TableViewConfigCellBlock configCellBlock;
 @property (nonatomic, copy)TableViewHeaderViewHeightBlock headerViewHeightBlock;

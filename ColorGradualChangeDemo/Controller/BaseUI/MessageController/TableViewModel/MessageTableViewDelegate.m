@@ -45,6 +45,10 @@
     {
         cell = [[NormalSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.lineView.hidden = YES;
+        UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(45, 43.5, KScreenWidth - 45, 0.5)];
+        [lineView  setBackgroundColor:[UIColor colorWithRed:215.0f/255.0f green:215.0f/255.0f blue:215.0f/255.0f alpha:215.0f/255.0f]];
+        [cell addSubview:lineView];
     }
     
     NSDictionary * dic = self.dataSource[indexPath.row];

@@ -44,7 +44,7 @@
     
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _headImage.bottom + 5, self.width, 0.5)];
     _lineView.alpha = 0.5;
-    [_lineView setBackgroundColor:[UIColor grayColor]];
+    [_lineView setBackgroundColor:[UIColor colorWithRed:248.0f/255.0f green:248.0f/255.0f blue:248.0f/255.0f alpha:1]];
     [self addSubview:_lineView];
     
     _weiBoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -67,6 +67,8 @@
     _fansBtn.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [_fansBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self addSubview:_fansBtn];
+    
+   
 }
 
 -(void)configData:(User *)user
@@ -91,6 +93,10 @@
     [_weiBoBtn setFrame:CGRectMake(self.left, _lineView.bottom, KScreenWidth/3, 40)];
     [_followBtn setFrame:CGRectMake(_weiBoBtn.right, _lineView.bottom, KScreenWidth/3, 40)];
     [_fansBtn setFrame:CGRectMake(_followBtn.right, _lineView.bottom, KScreenWidth/3, 40)];
+    
+    UIView  * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height - 0.5, KScreenWidth, 0.5)];
+    [lineView setBackgroundColor:[UIColor colorWithRed:215.0f/255.0f green:215.0f/255.0f blue:215.0f/255.0f alpha:1]];
+    [self addSubview:lineView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -21,6 +21,7 @@
         {        NSString * str = [[text string] substringWithRange:range];
             UIAlertView * alertView= [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"点击了 %@", str] delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
             [alertView show];
+//            NSLog(@"点击了好友关注 的@ 用户");
         };
         
         self.imageViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];

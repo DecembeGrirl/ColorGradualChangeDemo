@@ -17,6 +17,7 @@
 @property (nonatomic, strong)UIButton *rightBtn;
 @property (nonatomic, strong)UIViewController * VC;
 @property (nonatomic, strong)UIButton *backBtn;
+@property (nonatomic, strong)UIView *buttonlineView;
 
 + (CGFloat)barWidth;
 + (CGFloat)barHeight;

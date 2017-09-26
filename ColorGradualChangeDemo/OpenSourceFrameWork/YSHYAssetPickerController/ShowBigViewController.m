@@ -119,7 +119,7 @@
     //点击按钮，回到主发布页面
     _btnOK = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth - 50 - 5, kScreenHeight - 64 -30 -5, 50, 30)];
     [_btnOK setBackgroundImage:[UIImage imageNamed:@"complete.png"] forState:UIControlStateNormal];
-    [_btnOK setTitle:[NSString stringWithFormat:@"发送(%d)",self.sendNumber] forState:UIControlStateNormal];
+    [_btnOK setTitle:[NSString stringWithFormat:@"确定(%d)",self.sendNumber] forState:UIControlStateNormal];
     _btnOK .titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_btnOK addTarget:self action:@selector(complete:) forControlEvents:UIControlEventTouchUpInside];
     [self.view insertSubview:_btnOK aboveSubview:_scrollerview];
@@ -162,8 +162,9 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.currentPoint = _scrollerview.contentOffset;
-    int a = self.currentPoint.x   / _scrollerview.frame.size.width + 1 ;
-    self.currentZoomScrollView = scrollView.subviews[a-1];
+   CGFloat x =  self.currentPoint.x< 0?0: self.currentPoint.x;
+    int a = x   / _scrollerview.frame.size.width ;
+    self.currentZoomScrollView = scrollView.subviews[a];
     for (int i = 0; i < scrollView.subviews.count; i ++)
     {
         YSHYZoomScrollView * zoomScrollView = scrollView.subviews[i];
@@ -176,15 +177,16 @@
     self.currentPoint = _scrollerview.contentOffset;
     int b =self.currentPoint.x /_scrollerview.frame.size.width+1;
     _currentIndex = b-1 ;
-    if( b > 0)
+    if( _currentIndex >= 0)
     {
         self.title =[ NSString stringWithFormat:@"%d/%lu",b,(unsigned long)self.showImageArrary.count];
-        ShowImage * showImage = self.showImageArrary[b-1];
+        ShowImage * showImage = self.showImageArrary[_currentIndex];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:showImage.button];
+        self.lastZoomScrollView = self.currentZoomScrollView;
+        self.currentZoomScrollView = scrollView.subviews[b-1];
     }
-    self.lastZoomScrollView = self.currentZoomScrollView;
-    self.currentZoomScrollView = scrollView.subviews[b-1];
-    
+//    self.lastZoomScrollView = self.currentZoomScrollView;
+//    self.currentZoomScrollView = scrollView.subviews[b-1];
     if(![self.lastZoomScrollView isEqual:self.currentZoomScrollView])
     {
         //让滑过去的image恢复默认大小

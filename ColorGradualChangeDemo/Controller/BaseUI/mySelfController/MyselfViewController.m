@@ -34,6 +34,7 @@
 {
     [self.customNav setNavTitle:@"我"];
     [self.customNav setBackgroundColor:[UIColor whiteColor]];
+    self.customNav.buttonlineView.hidden = NO;
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftBtn setTitle:@"添加好友" forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
@@ -88,9 +89,13 @@
     [array6 addObject:@{@"image":@"tabbar_compose_more",@"title":@"更多",@"description":@"文章 收藏"}];
     [_arrayData addObject:array6];
 
+}
 
-
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //    _centeBtn.hidden = NO;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"centerBtnShow" object:nil];
 }
 
 /*

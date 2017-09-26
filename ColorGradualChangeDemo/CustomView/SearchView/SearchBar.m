@@ -17,6 +17,8 @@
     {
         _placeholder =  @"大家都在搜: Selina";
         [self CreatUI];
+        
+       
     }
     return  self;
 }
@@ -24,11 +26,12 @@
 -(void)CreatUI
 {
     CGFloat top = self.height < SearchBarHeight?5:22;
-    
     [self setBackgroundColor:RGB_COLOR(@"#FAFAFA")];
     _imageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_imageBtn setFrame:CGRectMake(5, top, 25, 25)];
     [_imageBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_search"] forState:UIControlStateNormal];
+//    [_imageBtn setImage:[UIImage imageNamed:@"navigationbar_search"] forState:UIControlStateNormal];
+//    _imageBtn.hidden = YES;
     [_imageBtn setBackgroundColor:RGB_COLOR(@"#E8E7E9")];
     [_imageBtn addTarget:self action:@selector(HandleImageBtn:) forControlEvents:UIControlEventTouchUpInside];
     _imageBtn.userInteractionEnabled = NO;
@@ -67,6 +70,7 @@
 -(void)RecoverySearchBarFrame
 {
     [_imageBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_search"] forState:UIControlStateNormal];
+//    [_imageBtn setImage:[UIImage imageNamed:@"navigationbar_search"] forState:UIControlStateNormal];
     _textField.text=@"";
     _textField.placeholder = _placeholder;
     _imageBtn.userInteractionEnabled = NO;
@@ -77,17 +81,31 @@
         [_textField setFrame:frame];
     }];
 }
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
    if(self.type == CanNotEditType)
     {
-        [self.delegate TextFiledBegingEdite];
+        if([self.delegate respondsToSelector:@selector(TextFiledBegingEdite)])
+        {
+            
+                [self.delegate TextFiledBegingEdite];
+//            }
+        }
     }
    else
    {
        NSArray * array = [textField.placeholder componentsSeparatedByString:@":"];
        textField.placeholder = array.count>1?array[1]:textField.placeholder;
-       [self ChangeSearchBarFrame];
+       if([_textField isFirstResponder])
+       {
+           _textField.inputView = nil;
+           NSLog(@"textView 变为 第一响应者");
+           [self ChangeSearchBarFrame];
+       }
+//       else{
+//           NSLog(@"......");
+//       }
    }
 }
 
@@ -107,5 +125,36 @@
     _textField.placeholder = placehoder;
 }
 
+-(void)setType:(SearchBarType)type
+{
+    _type = type;
+    if(type == CanNotEditType)
+    {
+        _textField.userInteractionEnabled = NO;
+         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSearchBar)];
+        [self addGestureRecognizer:tap];
+    }
+    else
+    {
+        _textField.userInteractionEnabled = YES;
+    }
+
+}
+
+-(void)tapSearchBar
+{
+    if([self.delegate respondsToSelector:@selector(TextFiledBegingEdite)])
+    {
+        [self.delegate TextFiledBegingEdite];
+    }
+
+}
+
+//-(BOOL)becomeFirstResponder
+//{
+//    [super becomeFirstResponder];
+//    
+//    return [_textField becomeFirstResponder];
+//}
 
 @end

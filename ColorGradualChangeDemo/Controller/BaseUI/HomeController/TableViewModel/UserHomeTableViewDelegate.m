@@ -50,6 +50,10 @@
     RetweetedStatusViewCell *retweetedStatusViewCell =[[RetweetedStatusViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:RetweetedSatusCellID];
     StatusViewForImageCell * statusViewForImageCell =[[StatusViewForImageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ImageContentCellID];
     userPhotoTableViewCell *  photoCell = [ tableView dequeueReusableCellWithIdentifier:PhotoCellID];
+    
+    NSArray *visibleCells = tableView.indexPathsForVisibleRows;
+    BOOL canLoad = [visibleCells containsObject:indexPath];
+    
     if (self.type == TypeOfUserAlssetsTableView)
     {
         if(!photoCell)
@@ -57,8 +61,11 @@
             photoCell = [[userPhotoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PhotoCellID];
             self.selectedPhotoBlock(photoCell);
         }
-        [photoCell ConfigCellWith:nil];
         
+//        [photoCell ConfigCellWith:obj];
+        NSArray * array = @[@"http://s11.sinaimg.cn/mw690/002Kq7FSgy6SK0DiwUWaa&690",@"http://s7.sinaimg.cn/large/002Kq7FSgy6SK0Dmat876&690",@"http://s3.sinaimg.cn/large/002Kq7FSgy6SK0DpoMG52&690",@"http://s1.sinaimg.cn/large/002Kq7FSgy6SK0DvZvOa0&690",@"http://s15.sinaimg.cn/large/002Kq7FSgy6SK0H4jJY7e&690",@"http://s12.sinaimg.cn/large/002Kq7FSgy6SK0H7Gzh2b&690",@"http://s9.sinaimg.cn/large/002Kq7FSgy6SK0HeOqAf8&690",@"http://s12.sinaimg.cn/large/002Kq7FSgy6SK0Mni7Feb&690",@"http://s15.sinaimg.cn/large/002Kq7FSgy6SK0MByrk7e&690"] ;
+        [photoCell.photoCollectionView configCellWith:array];
+//        [photoCell.photoCollectionView.myCollectionView  reloadData];
         return photoCell;
     }
     else
@@ -72,9 +79,10 @@
                     retweetedStatusViewCell = [[RetweetedStatusViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:RetweetedSatusCellID];
                     [retweetedStatusViewCell setHeadImageUserInterActionEnable:NO];
                 }
+                retweetedStatusViewCell.canLoad = canLoad;
                 retweetedStatusViewCell.delegate = self;
-                self.configCellBlock(indexPath,obj,retweetedStatusViewCell);
-                //            [retweetedStatusViewCell layoutIfNeeded];
+                self.configCellBlock(indexPath,obj,retweetedStatusViewCell,canLoad);
+                //[retweetedStatusViewCell layoutIfNeeded];
                 return retweetedStatusViewCell;
             }
             else if(obj.pic_urls.count > 0)
@@ -84,9 +92,10 @@
                     statusViewForImageCell = [[StatusViewForImageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ImageContentCellID];
                     [statusViewForImageCell setHeadImageUserInterActionEnable:NO];
                 }
+                statusViewForImageCell.canLoad = canLoad;
                 statusViewForImageCell.delegate = self;
-                self.configCellBlock(indexPath,obj,statusViewForImageCell);
-                //            [statusViewForImageCell layoutIfNeeded];
+                self.configCellBlock(indexPath,obj,statusViewForImageCell,canLoad);
+                //[statusViewForImageCell layoutIfNeeded];
                 return statusViewForImageCell;
             }
             else
@@ -96,8 +105,9 @@
                     baseCell = [[BaseCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BaseCellID];
                     [baseCell setHeadImageUserInterActionEnable:YES];
                 }
+                baseCell.canLoad = canLoad;
                 baseCell.delegate = self;
-                self.configCellBlock(indexPath,obj,baseCell);
+                self.configCellBlock(indexPath,obj,baseCell,canLoad);
                 //            [baseCell layoutIfNeeded];
                 return baseCell;
             }
@@ -123,10 +133,10 @@
 {
     if(self.type == TypeOfUserAlssetsTableView)
     {
-        if(10 %3)
-            return (KScreenWidth - 6)/3*(10/3 +1);
-        else
-            return (KScreenWidth - 6)/3* (10/3);
+//        if(10 %3)
+//            return (KScreenWidth - 6)/3*(10/3 +1);
+//        else
+            return (KScreenWidth - 6)/3* (10/3) - 5;
     }
     else
     {
@@ -135,7 +145,7 @@
         }
         else{
             Statuses * obj = _dataSource[indexPath.row];
-            return [obj getStatusesHight];
+            return obj.height;
         }
     }
     
@@ -159,7 +169,7 @@
     }
     else
     {
-        if(indexPath.section == 1)
+        if((indexPath.section == 1 && self.type == TypeOfUserHomeTableView)||self.type == TypeOfUserStatusTableView)
         {
             BaseCell *baseCell = (BaseCell *)cell;
             [baseCell setSubviewsFrame];
@@ -218,7 +228,7 @@
 
 -(void)SelectedCellBtn:(BaseCell *)cell btnType:(CommentType)type
 {
-    //    NSLog(<#NSString * _Nonnull format, ...#>)
+    //    NSLog(NSString * _Nonnull format, ...)
 }
 -(void)SelectedMoreBtn:(BaseCell *)cell
 {
@@ -228,6 +238,15 @@
 {
     NSLog(@"点击了 好友信息中的 status 的header");
 }
+
+-(void)SelectedUserName:(Statuses *)statusesObj
+{
+    NSLog(@"点击userName");
+    self.selectedUserNameBlock(statusesObj);
+    
+}
+
+
 
 //去掉UItableview headerview黏性(sticky)
 

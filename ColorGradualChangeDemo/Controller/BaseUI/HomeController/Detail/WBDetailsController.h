@@ -19,10 +19,10 @@ typedef void (^BackBlock)(Statuses *obj);
 {
     NSMutableArray *_dataArray;
     NSMutableDictionary * _dataDic;  //存放转发 评论 和赞
-    
     UserPhotoCollectionView * _imageContentView;
     BottomToolView *_bottomToolView;
 }
+
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)DetailsTableViewDelegate * myTableViewDelegate;
 @property (nonatomic, assign)CommentType type;

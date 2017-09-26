@@ -25,6 +25,7 @@
 {
     tableView.delegate = self;
     tableView.dataSource = self;
+    [tableView reloadData];
 }
 
 #pragma  maek - tableViewDelegate
@@ -64,7 +65,6 @@
     TopicCell * topicCell = (TopicCell *)[tableView dequeueReusableCellWithIdentifier:topicCellId];
     NormalSearchCell *normalSearchCell = (NormalSearchCell*)[tableView dequeueReusableCellWithIdentifier:normalSearchCellID];
     
-
     if(indexPath.section == 0)
     {
         if(!cycleScrollCell)
@@ -77,13 +77,15 @@
         if(!topicCell)
         topicCell = [[TopicCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topicCellId];
          topicCell.selectionStyle = UITableViewCellSelectionStyleNone;
+       UIView * lineview = [[UIView alloc]initWithFrame:CGRectMake(0, 49.5, KScreenWidth, 0.5)];
+        [topicCell addSubview:lineview];
+        [lineview setBackgroundColor:[UIColor colorWithRed:215.0f/255.0f green:215.0f/255.0f blue:215.0f/255.0f alpha:1]];
         return  topicCell;
     }
     else
     {
         if(!normalSearchCell)
         normalSearchCell = [[NormalSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalSearchCellID];
-         normalSearchCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return normalSearchCell;
     }
 }
@@ -102,6 +104,17 @@
     }
     return  40;
 }
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView * view=[[UIView alloc]init];
+    [view setBackgroundColor:[UIColor colorWithRed:248.0f/255.0f green:248.0f/255.0f blue:248.0f/255.0f alpha:1]];
+    UIView  * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 4.5, KScreenWidth, 0.5)];
+    [lineView setBackgroundColor:[UIColor colorWithRed:215.0f/255.0f green:215.0f/255.0f blue:215.0f/255.0f alpha:1]];
+    [view addSubview:lineView];
+    return view;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return  5;

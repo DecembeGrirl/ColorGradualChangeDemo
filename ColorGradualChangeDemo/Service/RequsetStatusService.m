@@ -33,14 +33,28 @@ static RequsetStatusService *_instance= nil;
     //    }
     //    else
     //    {
-    //     NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+         NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     //    if(!dataDic[@"error"])
-    self.successBlock(data,request);
+    if(data)
+    {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.successBlock(data,request);
+    });
+    }
+    else
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.fialedBlock(dataDic[@"error"]);
+        });
+    }
+    
     //    }
 }
 -(void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error
 {
-    self.fialedBlock(error);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.fialedBlock(error);
+    });
 }
 #pragma  mark - 获取微博个人信息
 -(void)FetchUserInfo
@@ -54,7 +68,7 @@ static RequsetStatusService *_instance= nil;
 -(void)FetchWeiBo:(NSInteger)page
 {
     NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
-    NSDictionary *params = @{Kaccess_token:accessToken,Kpage:[NSString stringWithFormat:@"%ld", (long)page],@"count":@"20"};
+    NSDictionary *params = @{Kaccess_token:accessToken,Kpage:[NSString stringWithFormat:@"%ld", (long)page],@"count":@"30"};
     [RequsetStatusService ConnectNetworkingWithURL:KUserAndeFriendWeiBo params:params connectType:@"GET" tag:KTagGetUserAndFriendWeibo];
 }
 #pragma mark - 根据微博ID 获取微博信息
@@ -95,6 +109,27 @@ static RequsetStatusService *_instance= nil;
     NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
     NSDictionary * params = @{Kaccess_token:accessToken,KUid:user.idstr,Kpage:[NSString stringWithFormat:@"%ld", (long)page]};
     [RequsetStatusService ConnectNetworkingWithURL:KURLGetUserPhoto params:params connectType:@"GET" tag:KTagGetUserPhotoInfo];
+}
+
+#pragma mark --  短连接转为普通链接
+-(void)ShortURLToLongURL:(NSString * )shortURL
+{
+    NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
+    NSDictionary * params = @{Kaccess_token:accessToken,KShort_URL:shortURL};
+    [RequsetStatusService ConnectNetworkingWithURL:KURLShort_urlToLong_url params:params connectType:@"GET" tag:KTagShortURLToLongURL];
+}
+#pragma mark --  获取最近一小时的话题
+-(void)getTrendHourly
+{
+    NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
+    NSDictionary * params = @{Kaccess_token:accessToken};
+    [RequsetStatusService ConnectNetworkingWithURL:KURLGetTrends_hourly params:params connectType:@"GET" tag:KTagTrends_hourly];
+}
+-(void)getNearbyLocation:(NSDictionary *)dic
+{
+    NSString *accessToken = [GlobalHelper getValueOfKey:Kaccess_token];
+    NSDictionary * params = @{Kaccess_token:accessToken,@"lat":dic[@"lat"],@"long":dic[@"long"]};
+    [RequsetStatusService ConnectNetworkingWithURL:LURLGetNearByLocation params:params connectType:@"GET" tag:KTagNearbyLocation];
 }
 
 @end
